@@ -71,4 +71,9 @@ return [
 
     'livewire_loading_delay' => 'default',
 
+    'panels' => [
+        App\Providers\Filament\AdminPanelProvider::class,
+        App\Providers\Filament\UserPanelProvider::class, // <- este precisa estar aqui
+    ],
+
 ];

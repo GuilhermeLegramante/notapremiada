@@ -1,5 +1,6 @@
 <?php
 
+use App\Filament\User\Pages\Register;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 
@@ -20,3 +21,6 @@ Route::redirect('/notapremiada/public/admin/login', '/notapremiada/public/admin/
 Route::get('/', function () {
     return redirect(route('filament.admin.pages.dashboard'));
 });
+
+Route::get('/user/register', Register::class)->name('filament.user.auth.register');
+

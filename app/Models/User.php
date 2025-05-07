@@ -22,6 +22,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'admin', 
+        'cpf',
+        'telefone',
+        'data_nascimento',
+        'saldo_sorteio',
     ];
 
     /**
@@ -42,4 +47,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function cupons()
+    {
+        return $this->hasMany(Cupom::class);
+    }
 }
