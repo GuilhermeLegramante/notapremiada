@@ -1,6 +1,7 @@
 <?php
 
-use App\Filament\User\Pages\Register;
+use App\Filament\Pages\Register;
+use App\Http\Controllers\LandingPageController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 
@@ -18,9 +19,11 @@ Livewire::setUpdateRoute(function ($handle) {
  */
 Route::redirect('/notapremiada/public/admin/login', '/notapremiada/public/admin/login')->name('login');
 
-Route::get('/', function () {
-    return redirect(route('filament.admin.pages.dashboard'));
-});
+// Route::get('/', function () {
+//     return redirect(route('filament.admin.pages.dashboard'));
+// });
+Route::get('/', [LandingPageController::class, 'index']);
+
 
 Route::get('/user/register', Register::class)->name('filament.user.auth.register');
 

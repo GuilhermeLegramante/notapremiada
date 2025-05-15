@@ -7,6 +7,7 @@ use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
@@ -62,6 +63,12 @@ class UserResource extends Resource
                 Toggle::make('admin')
                     ->label('Administrador')
                     ->inline(false),
+
+                Select::make('roles')
+                    ->label('Perfil')
+                    ->relationship('roles', 'name')
+                    ->preload()
+                    ->searchable(),
             ]);
     }
 

@@ -44,8 +44,21 @@ class NotaFiscalService
             $empresaNome = $empresaNome->item(0)->textContent;
         } else {
             $empresaNome = 'Nome não encontrado';
+            return false;
         }
         $dadosNota['empresa_nome'] = trim($empresaNome);
+
+        preg_match('/(\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2})<\/div><div class="text">(.*?)<\/div>/s', $html, $matches);
+    
+        if (!isset($matches[2])) return null;
+    
+        $enderecoCompleto = strip_tags($matches[2]);
+        $partes = explode(',', $enderecoCompleto);
+    
+        // A cidade está sempre na penúltima posição antes do estado
+        $cidade = trim($partes[count($partes) - 2]);
+
+        $dadosNota['cidade'] = $cidade;
 
         $empresaCNPJ = $xpath->query("//div[@class='text'][contains(text(), 'CNPJ:')]");
         if ($empresaCNPJ->length > 0) {
@@ -135,8 +148,8 @@ class NotaFiscalService
         // Data de Emissão
         preg_match('/Emissão:\s*<\/strong>(\d{2}\/\d{2}\/\d{4}) (\d{2}:\d{2}:\d{2})/', $html, $matches);
 
-        $data = $matches[1]; // 21/04/2025
-        $hora = $matches[2]; // 14:47:55
+        $data = isset($matches[1]) ? $matches[1] : '01/01/1900'; // 21/04/2025
+        // $hora = $matches[2]; // 14:47:55
 
         $dadosNota['data_emissao'] = DateTime::createFromFormat('d/m/Y', $data)->format('Y-m-d');
 

@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use App\Notifications\NumerosSorteioGeradosNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 
 class Cupom extends Model
 {
@@ -18,6 +22,7 @@ class Cupom extends Model
         'fornecedor',
         'data_cadastro',
         'observacao',
+        'validado',
     ];
 
     protected $casts = [
@@ -41,18 +46,43 @@ class Cupom extends Model
             $valorNota = $cupom->valor_total;
             $user = $cupom->user;
 
-            $acumulado = $user->saldo_sorteio + $valorNota;
-
-            $quantidadeNumeros = floor($acumulado / env('VALOR_NUMERO_SORTEIO', 200));
-            $novoSaldo = fmod($acumulado, env('VALOR_NUMERO_SORTEIO', 200));
-
-            for ($i = 0; $i < $quantidadeNumeros; $i++) {
-                $numero = str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
-                $cupom->numerosSorteio()->create(['numero' => $numero]);
+            if (!$user) {
+                return;
             }
 
-            $user->saldo_sorteio = $novoSaldo;
-            $user->save();
+            DB::transaction(function () use ($cupom, $user, $valorNota) {
+                $acumulado = $user->saldo_sorteio + $valorNota;
+                $valorPorNumero = env('VALOR_NUMERO_SORTEIO', 200);
+
+                $quantidadeNumeros = floor($acumulado / $valorPorNumero);
+                $novoSaldo = fmod($acumulado, $valorPorNumero);
+
+                $numerosGerados = [];
+
+                for ($i = 0; $i < $quantidadeNumeros; $i++) {
+                    do {
+                        $numero = str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
+                        $existe = $cupom->numerosSorteio()->where('numero', $numero)->exists();
+                    } while ($existe);
+
+                    $numeroSorteio = $cupom->numerosSorteio()->create(['numero' => $numero]);
+                    $numerosGerados[] = $numeroSorteio->id;
+                }
+
+                $user->saldo_sorteio = $novoSaldo;
+                $user->save();
+
+                Log::info("Gerados {$quantidadeNumeros} números para o cupom #{$cupom->id} do usuário #{$user->id}.");
+
+                if ($quantidadeNumeros > 0) {
+                    $adminEmail = env('ADMIN_EMAIL', 'guilhermelegramante@gmail.com');
+
+                    if ($adminEmail) {
+                        Notification::route('mail', $adminEmail)
+                            ->notify(new NumerosSorteioGeradosNotification($cupom, $quantidadeNumeros, $numerosGerados));
+                    }
+                }
+            });
         });
     }
 }

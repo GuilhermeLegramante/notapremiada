@@ -2,12 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CupomResource\Pages;
-use App\Filament\Resources\CupomResource\RelationManagers;
+use App\Filament\Resources\CupomResource\Pages\CreateCupom;
+use App\Filament\Resources\CupomResource\Pages\ListCupoms;
+use App\Filament\User\Resources\CupomResource\Pages;
+use App\Filament\User\Resources\CupomResource\RelationManagers;
 use App\Models\Cupom;
+use App\Services\NotaFiscalService;
+use DesignTheBox\BarcodeField\Forms\Components\BarcodeInput;
 use Filament\Forms;
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -17,6 +23,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\View;
+use Filament\Tables\Columns\IconColumn;
 
 class CupomResource extends Resource
 {
@@ -32,31 +40,61 @@ class CupomResource extends Resource
 
     protected static ?string $slug = 'cupom';
 
+    public static bool $shouldRegisterNavigation = true;
+
+    public static bool $shouldRegisterPermissions = false; // Para desabilitar o shield
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('chave_acesso')
-                    ->label('Chave de Acesso')
-                    ->required()
-                    ->maxLength(255),
+                Section::make('Dados do Cupom')
+                    ->description('Informe a chave de acesso e busque os dados da nota fiscal.')
+                    ->schema([
+                        Group::make([
+                            View::make('components.qrcode-reader')
+                                ->visible(fn() => true),
 
-                TextInput::make('valor_total')
-                    ->label('Valor Total')
-                    ->numeric()
-                    ->prefix('R$')
-                    ->required(),
+                            TextInput::make('chave_acesso')
+                                ->label('Chave de Acesso')
+                                ->required()
+                                ->unique()
+                                ->reactive()
+                                ->maxLength(255),
 
-                TextInput::make('fornecedor')
-                    ->required()
-                    ->maxLength(255),
+                            \Filament\Forms\Components\Actions::make([
+                                Action::make('getData')
+                                    ->label('Buscar Dados')
+                                    ->action('getNfData')
+                                    ->requiresConfirmation(false)
+                                    ->visible(fn($get) => filled($get('chave_acesso')))
+                                    ->color('primary'),
+                            ]),
 
-                DatePicker::make('data_cadastro')
-                    ->label('Data de Cadastro')
-                    ->required(),
+                            TextInput::make('valor_total')
+                                ->label('Valor Total')
+                                ->numeric()
+                                ->readOnly()
+                                ->prefix('R$')
+                                ->required()
+                                ->visible(fn($livewire) => $livewire->loadData),
 
-                Textarea::make('observacao')
-                    ->maxLength(1000),
+                            TextInput::make('fornecedor')
+                                ->readOnly()
+                                ->maxLength(255)
+                                ->visible(fn($livewire) => $livewire->loadData),
+
+                            DatePicker::make('data_emissao')
+                                ->label('Data de Emissão')
+                                ->readOnly()
+                                ->visible(fn($livewire) => $livewire->loadData),
+
+                            Textarea::make('observacao')
+                                ->maxLength(1000)
+                                ->visible(fn($livewire) => $livewire->loadData),
+                        ]),
+                    ])
+                    ->columns(1), // opcional: define colunas internas na section
             ]);
     }
 
@@ -64,21 +102,29 @@ class CupomResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('user.name')->label('Usuário'),
-                TextColumn::make('chave_acesso'),
-                TextColumn::make('valor_total')->money('BRL'),
-                TextColumn::make('fornecedor'),
-                TextColumn::make('data_cadastro')->date(),
                 TextColumn::make('numerosSorteio')
-                    ->label('Números')
+                    ->label('Números p/ Sorteio')
                     ->formatStateUsing(
                         fn($record) =>
-                        $record->numerosSorteio->pluck('numero')->implode(', ')
+                        $record->numerosSorteio->pluck('id')->implode(', ')
                     ),
+                TextColumn::make('data_cadastro')
+                    ->label('Data do Cadastro')
+                    ->date(),
+                TextColumn::make('fornecedor'),
+                // TextColumn::make('chave_acesso'),
+                TextColumn::make('valor_total')->money('BRL'),
+                IconColumn::make('validado')
+                    ->boolean()
+                    ->label('Validado'),
             ])
             ->filters([])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('verNota')
+                    ->label('Ver Nota')
+                    ->icon('heroicon-o-eye')
+                    ->url(fn($record) => "https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p={$record->chave_acesso}|2|1|1|")
+                    ->openUrlInNewTab(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
@@ -93,19 +139,20 @@ class CupomResource extends Resource
         ];
     }
 
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        if (auth()->user()->admin) {
+            return parent::getEloquentQuery();
+        } else {
+            return parent::getEloquentQuery()->where('user_id', auth()->id());
+        }
+    }
+
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCupoms::route('/'),
-            'create' => Pages\CreateCupom::route('/create'),
-            'edit' => Pages\EditCupom::route('/{record}/edit'),
+            'index' => ListCupoms::route('/'),
+            'create' => CreateCupom::route('/create'),
         ];
-    }
-
-    public static function mutateFormDataBeforeCreate(array $data): array
-    {
-        dd($data);
-        $data['user_id'] = auth()->id();
-        return $data;
     }
 }

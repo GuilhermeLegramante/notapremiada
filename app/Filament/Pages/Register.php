@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\User\Pages;
+namespace App\Filament\Pages;
 
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\DatePicker;
@@ -22,14 +22,18 @@ class Register extends AuthRegister
 
                         Document::make('cpf')
                             ->cpf()
+                            ->required()
+                            ->unique()
                             ->label('CPF')
-                            ->validation(false),
+                            ->validation(true),
 
                         PhoneNumber::make('telefone')
+                            ->required()
                             ->label('Telefone'),
 
                         DatePicker::make('data_nascimento')
                             ->label('Data de Nascimento')
+                            ->required()
                             ->nullable(),
 
                         $this->getEmailFormComponent(),
