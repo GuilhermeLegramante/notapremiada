@@ -11,7 +11,9 @@ class UserObserver
      */
     public function created(User $user): void
     {
-        //
+        if (! $user->roles()->where('name', 'user_default')->exists()) {
+            $user->assignRole('user_default');
+        }
     }
 
     /**

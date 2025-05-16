@@ -76,9 +76,7 @@ return [
             'FilamentInfoWidget',
         ],
 
-        'resources' => [
-            App\Filament\Resources\CupomResource::class,
-        ],
+        'resources' => [],
     ],
 
     'discovery' => [
