@@ -19,6 +19,8 @@ use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Leandrocfe\FilamentPtbrFormFields\Document;
+use Leandrocfe\FilamentPtbrFormFields\PhoneNumber;
 
 class UserResource extends Resource
 {
@@ -43,21 +45,20 @@ class UserResource extends Resource
                     ->required()
                     ->unique(ignoreRecord: true),
 
-                TextInput::make('cpf')
+                Document::make('cpf')
+                    ->cpf()
+                    ->required()
+                    ->unique()
                     ->label('CPF')
-                    ->mask('000.000.000-00')
-                    ->maxLength(14)
-                    ->nullable(),
+                    ->validation(true),
 
-                TextInput::make('telefone')
-                    ->label('Telefone')
-                    ->tel()
-                    ->mask('(00) 00000-0000')
-                    ->maxLength(15)
-                    ->nullable(),
+                PhoneNumber::make('telefone')
+                    ->required()
+                    ->label('Telefone'),
 
                 DatePicker::make('data_nascimento')
                     ->label('Data de Nascimento')
+                    ->required()
                     ->nullable(),
 
                 Toggle::make('admin')
