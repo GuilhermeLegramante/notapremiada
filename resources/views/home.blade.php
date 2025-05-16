@@ -55,7 +55,7 @@
 
 
         <div class="flex flex-col md:flex-row items-center justify-center gap-4">
-            <a href="https://play.google.com/store/apps/details?id=SEU_APP_ID" target="_blank"
+            <a href="/apk/nota-premiada.apk" target="_blank"
                 class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-blue-100 transition">
                 Baixar no Android
             </a>
@@ -146,7 +146,7 @@
         <h2 class="text-3xl font-bold mb-4">Como Participar</h2>
         <p class="mb-6 text-lg">Baixe o aplicativo ou acesse o site e cadastre suas notas fiscais para concorrer!</p>
         <div class="flex flex-col md:flex-row items-center justify-center gap-4">
-            <a href="https://play.google.com/store/apps/details?id=SEU_APP_ID" target="_blank"
+            <a href="/apk/nota-premiada.apk" target="_blank"
                 class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-blue-100 transition">
                 Baixar para Android
             </a>
