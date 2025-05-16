@@ -35,7 +35,7 @@
             </div>
             <a href="{{ route('filament.admin.auth.login') }}"
                 class="bg-white text-primary px-4 py-2 rounded-full font-semibold hover:bg-blue-100 transition">
-                Acessar minha conta
+                Minha conta
             </a>
         </div>
     </header>
