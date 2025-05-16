@@ -18,7 +18,9 @@ Livewire::setUpdateRoute(function ($handle) {
  * Ao trocar a senha do usuário, o Laravel exige um novo login.
  * Para isso, é necessário informar a rota de login
  */
-Route::redirect('/notapremiada/public/admin/login', '/notapremiada/public/admin/login')->name('login');
+// Route::redirect('/notapremiada/public/admin/login', '/notapremiada/public/admin/login')->name('login'); localhost tem que ser assim
+Route::redirect('/admin/login', '/admin/login')->name('login');
+
 
 // Route::get('/', function () {
 //     return redirect(route('filament.admin.pages.dashboard'));
