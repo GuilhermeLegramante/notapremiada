@@ -46,14 +46,15 @@ class Cupom extends Model
             $valorNota = $cupom->valor_total;
             $user = $cupom->user;
 
-            if (!$user) {
+            if (!$user || $valorNota <= 0) {
+                Log::warning("Cupom #{$cupom->id} criado sem usuário válido ou com valor inválido.");
                 return;
             }
 
             DB::transaction(function () use ($cupom, $user, $valorNota) {
-                $acumulado = $user->saldo_sorteio + $valorNota;
                 $valorPorNumero = env('VALOR_NUMERO_SORTEIO', 200);
 
+                $acumulado = $user->saldo_sorteio + $valorNota;
                 $quantidadeNumeros = floor($acumulado / $valorPorNumero);
                 $novoSaldo = fmod($acumulado, $valorPorNumero);
 
@@ -61,26 +62,25 @@ class Cupom extends Model
 
                 for ($i = 0; $i < $quantidadeNumeros; $i++) {
                     do {
-                        $numero = str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
-                        $existe = $cupom->numerosSorteio()->where('numero', $numero)->exists();
+                        // Gera número de 9 dígitos (zero à esquerda se necessário)
+                        $numero = str_pad(mt_rand(1, 999999999), 9, '0', STR_PAD_LEFT);
+
+                        // Evita duplicidade global no banco
+                        $existe = NumeroSorteio::where('numero', $numero)->exists();
                     } while ($existe);
 
                     $numeroSorteio = $cupom->numerosSorteio()->create(['numero' => $numero]);
-                    $numerosGerados[] = $numeroSorteio->id;
+                    $numerosGerados[] = $numeroSorteio->numero;
                 }
 
                 $user->saldo_sorteio = $novoSaldo;
                 $user->save();
 
-                Log::info("Gerados {$quantidadeNumeros} números para o cupom #{$cupom->id} do usuário #{$user->id}.");
+                Log::info("Gerados {$quantidadeNumeros} número(s) para o cupom #{$cupom->id} do usuário #{$user->id}");
 
-                if ($quantidadeNumeros > 0) {
-                    $adminEmail = env('ADMIN_EMAIL', 'guilhermelegramante@gmail.com');
-
-                    if ($adminEmail) {
-                        Notification::route('mail', $adminEmail)
-                            ->notify(new NumerosSorteioGeradosNotification($cupom, $quantidadeNumeros, $numerosGerados));
-                    }
+                if ($quantidadeNumeros > 0 && $adminEmail = env('ADMIN_EMAIL')) {
+                    Notification::route('mail', $adminEmail)
+                        ->notify(new NumerosSorteioGeradosNotification($cupom, $quantidadeNumeros, $numerosGerados));
                 }
             });
         });
