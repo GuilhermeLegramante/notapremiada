@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CupomController;
 use App\Http\Controllers\NumeroSorteioController;
+use App\Http\Controllers\PasswordResetLinkController;
 use App\Http\Controllers\SorteioController;
 
 /*
@@ -22,6 +23,8 @@ use App\Http\Controllers\SorteioController;
 // Rotas públicas (sem autenticação)
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/cadastro', [AuthController::class, 'register']);
+
+Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.reset');
 
 // Rotas protegidas por autenticação Sanctum F
 Route::middleware('auth:sanctum')->group(function () {
@@ -40,6 +43,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/saldo', [UserController::class, 'saldo']);
 
     Route::post('register', [UserController::class, 'store']);
+
 
     // Sorteios realizados
     // Route::get('/sorteios', [SorteioController::class, 'index']);

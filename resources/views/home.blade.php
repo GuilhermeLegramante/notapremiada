@@ -30,7 +30,7 @@
     <header class="bg-gradient-to-r from-primaryDark via-primary to-primaryLight shadow">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             <div class="flex items-center gap-4">
-                <img src="{{ asset('images/brasao_cacequi.png') }}" alt="Prefeitura de Cacequi" class="w-14 h-14">
+                <img src="{{ public_path('images/brasao_cacequi.png') }}" alt="Prefeitura de Cacequi" class="w-14 h-14">
                 <span class="text-white text-xl font-bold">Nota Premiada Cacequi</span>
             </div>
             <a href="{{ route('filament.admin.auth.login') }}"
