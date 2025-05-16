@@ -28,17 +28,20 @@
 
     <!-- Barra Superior -->
     <header class="bg-gradient-to-r from-primaryDark via-primary to-primaryLight shadow">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <img src="images/brasao_cacequi.png" alt="Prefeitura de Cacequi" class="w-14 h-14">
-                <span class="text-white text-xl font-bold">Nota Premiada Cacequi</span>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3 sm:gap-4">
+                <img src="images/brasao_cacequi.png" alt="Prefeitura de Cacequi" class="w-12 h-12 sm:w-14 sm:h-14">
+                <span class="text-white text-lg sm:text-xl font-bold text-center sm:text-left">
+                    Nota Premiada Cacequi
+                </span>
             </div>
             <a href="{{ route('filament.admin.auth.login') }}"
-                class="bg-white text-primary px-4 py-2 rounded-full font-semibold hover:bg-blue-100 transition">
+                class="bg-white text-primary px-4 py-2 rounded-full font-semibold hover:bg-blue-100 transition text-sm sm:text-base">
                 Minha conta
             </a>
         </div>
     </header>
+
 
     <!-- Hero -->
     <section class="bg-gradient-to-r from-primaryDark via-primary to-primaryLight text-white py-20 text-center px-6">
@@ -74,20 +77,17 @@
         <h2 class="text-3xl font-bold text-center mb-12">Prêmios da Campanha</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="bg-white shadow-lg rounded-2xl p-6 text-center border">
-                <img src="images/premios/premio1.jpg" alt="Carro"
-                    class="mx-auto mb-4 h-40 object-contain" />
+                <img src="images/premios/premio1.jpg" alt="Carro" class="mx-auto mb-4 h-40 object-contain" />
                 <h3 class="text-xl font-semibold mb-2">Carro 0km</h3>
                 <p>O grande prêmio da campanha! Um carro novinho para transformar sua vida.</p>
             </div>
             <div class="bg-white shadow-lg rounded-2xl p-6 text-center border">
-                <img src="images/premios/premio4.jpg" alt="Smart TV"
-                    class="mx-auto mb-4 h-40 object-contain" />
+                <img src="images/premios/premio4.jpg" alt="Smart TV" class="mx-auto mb-4 h-40 object-contain" />
                 <h3 class="text-xl font-semibold mb-2">Smart TV</h3>
                 <p>Assista seus conteúdos favoritos com mais qualidade e estilo.</p>
             </div>
             <div class="bg-white shadow-lg rounded-2xl p-6 text-center border">
-                <img src="images/premios/premio2.jpg" alt="Notebook"
-                    class="mx-auto mb-4 h-40 object-contain" />
+                <img src="images/premios/premio2.jpg" alt="Notebook" class="mx-auto mb-4 h-40 object-contain" />
                 <h3 class="text-xl font-semibold mb-2">Notebook</h3>
                 <p>Um Notebook moderno para o seus estudos e dia-a-dia!</p>
             </div>
@@ -158,7 +158,7 @@
         <p class="mt-4 text-sm text-blue-200 italic">Disponível gratuitamente nas lojas de aplicativos ou pelo site.</p>
     </section>
 
-    
+
 
     <!-- Rodapé -->
     <footer class="bg-blue-900 text-white text-center py-6 px-4">
