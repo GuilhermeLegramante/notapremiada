@@ -9,6 +9,7 @@ Livewire::setScriptRoute(function ($handle) {
     return Route::get('/notapremiada/public/livewire/livewire.js', $handle);
 });
 
+
 Livewire::setUpdateRoute(function ($handle) {
     return Route::post('/notapremiada/public/livewire/update', $handle);
 });
