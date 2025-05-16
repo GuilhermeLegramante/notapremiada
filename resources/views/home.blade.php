@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nota Premiada Cacequi</title>
-    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="icon" href="/images/favicon-cacequi.png" type="image/png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
     <meta name="theme-color" content="#1E3A8A" />
     <script src="https://cdn.tailwindcss.com"></script>
