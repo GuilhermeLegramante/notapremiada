@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\Role;
 use App\Models\User;
 
 class UserObserver
@@ -11,8 +12,14 @@ class UserObserver
      */
     public function created(User $user): void
     {
-        if (! $user->roles()->where('name', 'user_default')->exists()) {
-            $user->assignRole('user_default', 'admin');
+        if (! $user->hasRole('user_default', 'admin')) {
+            $role = Role::where('name', 'user_default')
+                ->where('guard_name', 'admin')
+                ->first();
+
+            if ($role) {
+                $user->assignRole($role);
+            }
         }
     }
 
