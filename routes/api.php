@@ -26,6 +26,8 @@ Route::post('/cadastro', [AuthController::class, 'register']);
 
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.reset');
 
+Route::post('register', [UserController::class, 'store']);
+
 // Rotas protegidas por autenticação Sanctum F
 Route::middleware('auth:sanctum')->group(function () {
     // Perfil do usuário
@@ -42,7 +44,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/saldo', [UserController::class, 'saldo']);
 
-    Route::post('register', [UserController::class, 'store']);
 
 
     // Sorteios realizados
