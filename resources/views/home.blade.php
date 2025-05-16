@@ -44,33 +44,41 @@
 
 
     <!-- Hero -->
-    <section class="bg-gradient-to-r from-primaryDark via-primary to-primaryLight text-white py-20 text-center px-6">
-        <h1 class="text-4xl md:text-6xl font-bold mb-4">Nota Premiada Cacequi</h1>
-        <h1 class="text-3xl font-bold mb-4">
-            Ganhe prêmios cadastrando suas notas fiscais!
-        </h1>
-        <p class="text-lg md:text-xl mb-6">
-            A cada R$200 em compras no comércio local, você ganha um número da sorte.<br>
-            O sorteio final ocorre em <strong>28 de dezembro</strong>!
-        </p>
-        <!-- Contador Regressivo -->
-        <div id="countdown" class="text-2xl md:text-3xl font-bold mb-6"></div>
+    <section class="relative bg-cover bg-center text-white py-20 text-center px-6"
+        style="background-image: url('/images/bg-cacequi.jpg');">
+        <!-- Overlay com gradiente -->
+        <div class="absolute inset-0 bg-gradient-to-r from-primaryDark via-primary to-primaryLight opacity-80"></div>
 
+        <!-- Conteúdo -->
+        <div class="relative z-10">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">Nota Premiada Cacequi</h1>
+            <h1 class="text-3xl font-bold mb-4">
+                Ganhe prêmios cadastrando suas notas fiscais!
+            </h1>
+            <p class="text-lg md:text-xl mb-6">
+                A cada R$200 em compras no comércio local, você ganha um número da sorte.<br>
+                O sorteio final ocorre em <strong>28 de dezembro</strong>!
+            </p>
 
-        <div class="flex flex-col md:flex-row items-center justify-center gap-4">
-            <a href="/apk/nota-premiada.apk" target="_blank"
-                class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-blue-100 transition">
-                Baixar no Android
-            </a>
-            <a href="https://apps.apple.com/app/idSEU_APP_ID" target="_blank"
-                class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-blue-100 transition">
-                Baixar no iOS
-            </a>
+            <div id="countdown" class="text-2xl md:text-3xl font-bold mb-6"></div>
+
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+                <a href="/apk/nota-premiada.apk" target="_blank"
+                    class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-blue-100 transition">
+                    Baixar no Android
+                </a>
+                <a href="https://apps.apple.com/app/idSEU_APP_ID" target="_blank"
+                    class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-blue-100 transition">
+                    Baixar no iOS
+                </a>
+            </div>
+
+            <p class="mt-4 text-sm text-blue-200 italic">
+                Cadastre-se pelo aplicativo <strong>ou</strong> pelo site.
+            </p>
         </div>
-        <p class="mt-4 text-sm text-blue-200 italic">
-            Cadastre-se pelo aplicativo <strong>ou</strong> pelo site.
-        </p>
     </section>
+
 
     <!-- Prêmios -->
     <section class="py-16 px-6 max-w-6xl mx-auto">
