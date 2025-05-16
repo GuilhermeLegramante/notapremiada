@@ -15,8 +15,7 @@ class CupomPolicy
      */
     public function viewAny(User $user): bool
     {
-        // return $user->can('view_any_cupom');
-        return true;
+        return $user->can('view_any_cupom');
     }
 
     /**
@@ -24,8 +23,7 @@ class CupomPolicy
      */
     public function view(User $user, Cupom $cupom): bool
     {
-        // return $user->can('view_cupom');
-        return true;
+        return $user->can('view_cupom');
     }
 
     /**
@@ -33,8 +31,7 @@ class CupomPolicy
      */
     public function create(User $user): bool
     {
-        // return $user->can('create_cupom');
-        return true;
+        return $user->can('create_cupom');
     }
 
     /**
@@ -42,8 +39,7 @@ class CupomPolicy
      */
     public function update(User $user, Cupom $cupom): bool
     {
-        // return $user->can('update_cupom');
-        return true;
+        return $user->can('update_cupom');
     }
 
     /**
@@ -51,8 +47,7 @@ class CupomPolicy
      */
     public function delete(User $user, Cupom $cupom): bool
     {
-        // return $user->can('delete_cupom');
-        return true;
+        return $user->can('delete_cupom');
     }
 
     /**
@@ -60,8 +55,7 @@ class CupomPolicy
      */
     public function deleteAny(User $user): bool
     {
-        // return $user->can('delete_any_cupom');
-        return true;
+        return $user->can('delete_any_cupom');
     }
 
     /**
@@ -69,8 +63,7 @@ class CupomPolicy
      */
     public function forceDelete(User $user, Cupom $cupom): bool
     {
-        // return $user->can('force_delete_cupom');
-        return true;
+        return $user->can('force_delete_cupom');
     }
 
     /**
@@ -78,8 +71,7 @@ class CupomPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        // return $user->can('force_delete_any_cupom');
-        return true;
+        return $user->can('force_delete_any_cupom');
     }
 
     /**
@@ -87,8 +79,7 @@ class CupomPolicy
      */
     public function restore(User $user, Cupom $cupom): bool
     {
-        // return $user->can('restore_cupom');
-        return true;
+        return $user->can('restore_cupom');
     }
 
     /**
@@ -96,8 +87,7 @@ class CupomPolicy
      */
     public function restoreAny(User $user): bool
     {
-        // return $user->can('restore_any_cupom');
-        return true;
+        return $user->can('restore_any_cupom');
     }
 
     /**
@@ -105,8 +95,7 @@ class CupomPolicy
      */
     public function replicate(User $user, Cupom $cupom): bool
     {
-        // return $user->can('replicate_cupom');
-        return true;
+        return $user->can('replicate_cupom');
     }
 
     /**
@@ -114,7 +103,6 @@ class CupomPolicy
      */
     public function reorder(User $user): bool
     {
-        // return $user->can('reorder_cupom');
-        return true;
+        return $user->can('reorder_cupom');
     }
 }
