@@ -84,7 +84,13 @@ class UserResource extends Resource
                 ToggleColumn::make('admin')
                     ->label('Admin'),
             ])
-            ->defaultSort('name');
+            ->defaultSort('name')
+            ->actions([
+                Tables\Actions\DeleteAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\DeleteBulkAction::make(),
+            ]);;
     }
 
     public static function getRelations(): array
