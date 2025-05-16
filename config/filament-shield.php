@@ -76,7 +76,9 @@ return [
             'FilamentInfoWidget',
         ],
 
-        'resources' => [],
+        'resources' => [
+            App\Filament\Resources\CupomResource::class,
+        ],
     ],
 
     'discovery' => [
@@ -87,10 +89,6 @@ return [
 
     'register_role_policy' => [
         'enabled' => true,
-    ],
-
-    'exclude' => [
-        App\Filament\Resources\CupomResource::class,
     ],
 
 ];
