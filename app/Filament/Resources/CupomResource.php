@@ -111,6 +111,8 @@ class CupomResource extends Resource
                 TextColumn::make('data_cadastro')
                     ->label('Data do Cadastro')
                     ->date(),
+                TextColumn::make('user.name')
+                    ->label('Usuário'),
                 TextColumn::make('fornecedor'),
                 // TextColumn::make('chave_acesso'),
                 TextColumn::make('valor_total')->money('BRL'),
