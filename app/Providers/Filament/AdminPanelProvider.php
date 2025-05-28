@@ -28,7 +28,7 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         Table::configureUsing(function (Table $table) {
-            $table->paginationPageOptions([10, 25, 50]); // Não inclui -1, que é o "Ver todos"
+            $table->paginationPageOptions([10, 25, 50, 100]); // Não inclui -1, que é o "Ver todos"
         });
         
         return $panel
