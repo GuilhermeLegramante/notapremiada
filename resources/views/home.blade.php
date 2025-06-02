@@ -90,6 +90,11 @@
                 <p>O grande prêmio da campanha! Um carro novinho para transformar sua vida.</p>
             </div>
             <div class="bg-white shadow-lg rounded-2xl p-6 text-center border">
+                <img src="images/premios/premio5.jpg" alt="Motocicleta" class="mx-auto mb-4 h-40 object-contain" />
+                <h3 class="text-xl font-semibold mb-2">Motocicleta 0km</h3>
+                <p>Mais liberdade e mobilidade com uma moto novinha em folha!</p>
+            </div>
+            <div class="bg-white shadow-lg rounded-2xl p-6 text-center border">
                 <img src="images/premios/tv.jpg" alt="Smart TV" class="mx-auto mb-4 h-40 object-contain" />
                 <h3 class="text-xl font-semibold mb-2">Smart TV 50''</h3>
                 <p>Assista seus conteúdos favoritos com mais qualidade e estilo.</p>
@@ -98,11 +103,6 @@
                 <img src="images/premios/smartphone.jpg" alt="Smartphone" class="mx-auto mb-4 h-40 object-contain" />
                 <h3 class="text-xl font-semibold mb-2">Smartphone Xiaomi Redmi Note 13</h3>
                 <p>Um Smartphone moderno para o seus estudos e dia-a-dia!</p>
-            </div>
-            <div class="bg-white shadow-lg rounded-2xl p-6 text-center border">
-                <img src="images/premios/premio5.jpg" alt="Motocicleta" class="mx-auto mb-4 h-40 object-contain" />
-                <h3 class="text-xl font-semibold mb-2">Motocicleta 0km</h3>
-                <p>Mais liberdade e mobilidade com uma moto novinha em folha!</p>
             </div>
         </div>
     </section>
