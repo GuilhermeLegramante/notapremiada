@@ -57,6 +57,16 @@ class CupomController extends Controller
             ], 400);
         }
 
+        // Validação do ano
+        $anoAtual = now()->year;
+        $anoNota = \Carbon\Carbon::parse($dados['data_emissao'])->year;
+
+        if ($anoNota !== $anoAtual) {
+            return response()->json([
+                'message' => 'A nota fiscal deve ter sido emitida no ano de ' . $anoAtual . '.'
+            ], 400);
+        }
+
         // Validação do valor total
         if ($dados['total'] <= 0) {
             return response()->json([
