@@ -83,24 +83,30 @@
     <!-- Prêmios -->
     <section class="py-16 px-6 max-w-6xl mx-auto">
         <h2 class="text-3xl font-bold text-center mb-12">Prêmios da Campanha</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
             <div class="bg-white shadow-lg rounded-2xl p-6 text-center border">
-                <img src="images/premios/premio1.jpg" alt="Carro" class="mx-auto mb-4 h-40 object-contain" />
-                <h3 class="text-xl font-semibold mb-2">Carro 0km</h3>
+                <img src="images/premios/kwid.jpg" alt="Carro" class="mx-auto mb-4 h-40 object-contain" />
+                <h3 class="text-xl font-semibold mb-2">Renault Kwid Zen 0km</h3>
                 <p>O grande prêmio da campanha! Um carro novinho para transformar sua vida.</p>
             </div>
             <div class="bg-white shadow-lg rounded-2xl p-6 text-center border">
-                <img src="images/premios/premio4.jpg" alt="Smart TV" class="mx-auto mb-4 h-40 object-contain" />
-                <h3 class="text-xl font-semibold mb-2">Smart TV</h3>
+                <img src="images/premios/tv.jpg" alt="Smart TV" class="mx-auto mb-4 h-40 object-contain" />
+                <h3 class="text-xl font-semibold mb-2">Smart TV 50''</h3>
                 <p>Assista seus conteúdos favoritos com mais qualidade e estilo.</p>
             </div>
             <div class="bg-white shadow-lg rounded-2xl p-6 text-center border">
-                <img src="images/premios/premio2.jpg" alt="Notebook" class="mx-auto mb-4 h-40 object-contain" />
-                <h3 class="text-xl font-semibold mb-2">Notebook</h3>
-                <p>Um Notebook moderno para o seus estudos e dia-a-dia!</p>
+                <img src="images/premios/smartphone.jpg" alt="Smartphone" class="mx-auto mb-4 h-40 object-contain" />
+                <h3 class="text-xl font-semibold mb-2">Smartphone Xiaomi Redmi Note 13</h3>
+                <p>Um Smartphone moderno para o seus estudos e dia-a-dia!</p>
+            </div>
+            <div class="bg-white shadow-lg rounded-2xl p-6 text-center border">
+                <img src="images/premios/premio5.jpg" alt="Motocicleta" class="mx-auto mb-4 h-40 object-contain" />
+                <h3 class="text-xl font-semibold mb-2">Motocicleta 0km</h3>
+                <p>Mais liberdade e mobilidade com uma moto novinha em folha!</p>
             </div>
         </div>
     </section>
+
 
     <!-- Resultados -->
     <section class="bg-blue-50 py-16 px-6">
