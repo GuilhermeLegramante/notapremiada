@@ -90,7 +90,7 @@
                 <p>O grande prêmio da campanha! Um carro novinho para transformar sua vida.</p>
             </div>
             <div class="bg-white shadow-lg rounded-2xl p-6 text-center border">
-                <img src="images/premios/premio5.jpg" alt="Motocicleta" class="mx-auto mb-4 h-40 object-contain" />
+                <img src="images/premios/moto.jpg" alt="Motocicleta" class="mx-auto mb-4 h-40 object-contain" />
                 <h3 class="text-xl font-semibold mb-2">Motocicleta 0km</h3>
                 <p>Mais liberdade e mobilidade com uma moto novinha em folha!</p>
             </div>
