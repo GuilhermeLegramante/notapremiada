@@ -23,9 +23,7 @@ class NotaFiscalService
      */
     public static function getDataFromQrCode($qrCode)
     {
-        // $qrCode = '43250492754738014708654000000363061276394257|2|1|1|';
-
-        $url = "https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p={$qrCode}|2|1|1|";
+        $url = "https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p={$qrCode}";
 
         $html = file_get_contents($url);
 
