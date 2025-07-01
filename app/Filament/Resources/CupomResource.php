@@ -125,7 +125,7 @@ class CupomResource extends Resource
                 Tables\Actions\Action::make('verNota')
                     ->label('Ver Nota')
                     ->icon('heroicon-o-eye')
-                    ->url(fn($record) => "https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p={$record->chave_acesso}|2|1|1|")
+                    ->url(fn($record) => "https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p={$record->chave_acesso}")
                     ->openUrlInNewTab(),
                 Tables\Actions\DeleteAction::make(),
             ])
