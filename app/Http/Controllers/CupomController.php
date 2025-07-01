@@ -98,10 +98,19 @@ class CupomController extends Controller
 
     private function extrairChaveAcesso($url)
     {
-        // Expressão regular para capturar a chave de acesso (que aparece após "p=")
-        preg_match('/p=([0-9]{44})/', $url, $matches);
+        // // Expressão regular para capturar a chave de acesso (que aparece após "p=")
+        // preg_match('/p=([0-9]{44})/', $url, $matches);
 
-        // Retorna a chave de acesso, se encontrada
-        return $matches[1] ?? null;
+        // // Retorna a chave de acesso, se encontrada
+        // return $matches[1] ?? null;
+
+        // Pega a parte da query da URL
+        $query = parse_url($url, PHP_URL_QUERY);
+
+        // Extrai tudo após "p="
+        parse_str($query, $params);
+        $p = $params['p'] ?? null;
+
+        return $p;
     }
 }
