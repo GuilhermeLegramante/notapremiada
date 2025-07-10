@@ -45,7 +45,7 @@ class NumerosSorteioGeradosNotification extends Notification
             $message->line("• {$n}");
         }
 
-        $message->action('Ver Cupom', "https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p={$this->cupom->chave_acesso}|2|1|1|");
+        $message->action('Ver Cupom', "https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p={$this->cupom->chave_acesso}");
 
         return $message;
     }
