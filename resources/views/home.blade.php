@@ -65,11 +65,11 @@
             <div class="flex flex-col md:flex-row items-center justify-center gap-4">
                 <a href="/apk/Nota Premiada.apk" target="_blank"
                     class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-blue-100 transition">
-                    Baixar no Android
+                    App para Android
                 </a>
-                <a href="https://apps.apple.com/app/idSEU_APP_ID" target="_blank"
+                <a href="{{ route('filament.admin.auth.login') }}" target="_blank"
                     class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-blue-100 transition">
-                    Baixar no iOS
+                    Acesso para iOS
                 </a>
             </div>
 
@@ -162,11 +162,11 @@
         <div class="flex flex-col md:flex-row items-center justify-center gap-4">
             <a href="/apk/Nota Premiada.apk" target="_blank"
                 class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-blue-100 transition">
-                Baixar para Android
+                App para Android
             </a>
-            <a href="https://apps.apple.com/app/idSEU_APP_ID" target="_blank"
+            <a href="{{ route('filament.admin.auth.login') }}" target="_blank"
                 class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-blue-100 transition">
-                Baixar para iOS
+                Acesso para iOS
             </a>
         </div>
         <p class="mt-4 text-sm text-blue-200 italic">Disponível gratuitamente nas lojas de aplicativos ou pelo site.</p>
