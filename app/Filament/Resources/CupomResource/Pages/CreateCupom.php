@@ -49,6 +49,8 @@ class CreateCupom extends CreateRecord
     {
         $chave = $this->form->getState()['chave_acesso'] ?? null;
 
+        dd($chave);
+
         $dados = NotaFiscalService::getDataFromQrCode($chave);
 
         if (! $dados) {
