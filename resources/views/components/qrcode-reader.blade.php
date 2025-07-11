@@ -29,15 +29,6 @@
                 qrbox: 250
             },
             (decodedText, decodedResult) => {
-                console.log("Resultado escaneado:", decodedText, decodedResult);
-
-                if (!decodedText) {
-                    alert("QR Code inválido ou vazio.");
-                    return;
-                } else {
-                    alert(decodedText);
-                }
-
                 if (scannerInstance) {
                     scannerInstance.stop().then(() => {
                         // Obtém a referência do Livewire
@@ -49,6 +40,7 @@
 
                             // aqui está pegando null no decodedText como testo pra ver se tem algum valor?
 
+                            alert(decodedText);
 
                             // Exemplo de chamada de outro método se necessário
                             livewireComponent.call('getNfData');
