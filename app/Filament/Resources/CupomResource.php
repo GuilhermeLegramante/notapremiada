@@ -57,7 +57,7 @@ class CupomResource extends Resource
 
                             TextInput::make('chave_acesso')
                                 ->label('Chave de Acesso')
-                                ->required()
+                                // ->required()
                                 ->unique()
                                 ->reactive()
                                 ->maxLength(255),
