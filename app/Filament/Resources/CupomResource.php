@@ -57,25 +57,25 @@ class CupomResource extends Resource
                                 ->reactive()
                                 ->visible(fn() => true),
 
-                            TextInput::make('chave_acesso')
-                                ->label('Chave de Acesso')
-                                // ->required()
-                                ->unique()
-                                ->reactive()
-                                ->maxLength(255),
+                            // TextInput::make('chave_acesso')
+                            //     ->label('Chave de Acesso')
+                            //     // ->required()
+                            //     ->unique()
+                            //     ->reactive()
+                            //     ->maxLength(255),
 
                             // QrCodeInput::make('chave_acesso')
                             //     ->reactive()
                             //     ->required(),
 
-                            \Filament\Forms\Components\Actions::make([
-                                Action::make('getData')
-                                    ->label('Buscar Dados')
-                                    ->action('getNfData')
-                                    ->requiresConfirmation(false)
-                                    // ->visible(fn($get) => filled($get('chave_acesso')))
-                                    ->color('primary'),
-                            ]),
+                            // \Filament\Forms\Components\Actions::make([
+                            //     Action::make('getData')
+                            //         ->label('Buscar Dados')
+                            //         ->action('getNfData')
+                            //         ->requiresConfirmation(false)
+                            //         // ->visible(fn($get) => filled($get('chave_acesso')))
+                            //         ->color('primary'),
+                            // ]),
 
                             TextInput::make('valor_total')
                                 ->label('Valor Total')
