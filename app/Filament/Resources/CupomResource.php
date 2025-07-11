@@ -54,14 +54,15 @@ class CupomResource extends Resource
                     ->schema([
                         Group::make([
                             View::make('components.qrcode-reader')
+                                ->reactive()
                                 ->visible(fn() => true),
 
-                            // TextInput::make('chave_acesso')
-                            //     ->label('Chave de Acesso')
-                            //     // ->required()
-                            //     ->unique()
-                            //     ->reactive()
-                            //     ->maxLength(255),
+                            TextInput::make('chave_acesso')
+                                ->label('Chave de Acesso')
+                                // ->required()
+                                ->unique()
+                                ->reactive()
+                                ->maxLength(255),
 
                             QrCodeInput::make('chave_acesso')
                                 ->reactive()
