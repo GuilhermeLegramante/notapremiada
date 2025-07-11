@@ -41,7 +41,9 @@
                             // aqui está pegando null no decodedText como testo pra ver se tem algum valor?
 
                             // Exemplo de chamada de outro método se necessário
-                            livewireComponent.call('getNfData', decodedText);
+                            const qrCode = decodedText.match(/p=([^&]+)/);
+                            
+                            livewireComponent.call('getNfData', qrCode[1]);
                         }
 
                         scannerInstance = null;

@@ -73,7 +73,7 @@ class CupomResource extends Resource
                                     ->label('Buscar Dados')
                                     ->action('getNfData')
                                     ->requiresConfirmation(false)
-                                    ->visible(fn($get) => filled($get('chave_acesso')))
+                                    // ->visible(fn($get) => filled($get('chave_acesso')))
                                     ->color('primary'),
                             ]),
 

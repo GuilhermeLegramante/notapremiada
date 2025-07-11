@@ -47,12 +47,9 @@ class CreateCupom extends CreateRecord
 
     public function getNfData($qrCode = null)
     {
-        dd($qrCode);
+        // $chave = $this->form->getState()['chave_acesso'] ?? null;
 
-        $chave = $this->form->getState()['chave_acesso'] ?? null;
-
-
-        $dados = NotaFiscalService::getDataFromQrCode($chave);
+        $dados = NotaFiscalService::getDataFromQrCode($qrCode);
 
         if (! $dados) {
             $this->invalidateForm('Chave de acesso inválida', 'Não foi possível obter os dados da nota fiscal. Verifique a chave e tente novamente.');
@@ -74,7 +71,7 @@ class CreateCupom extends CreateRecord
 
         $this->validado = true;
         $this->form->fill([
-            'chave_acesso' => $chave,
+            'chave_acesso' => $qrCode,
             'valor_total' => $dados['total'],
             'fornecedor' => $dados['empresa_nome'],
             'data_emissao' => $dados['data_emissao'],
