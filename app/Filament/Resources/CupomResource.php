@@ -50,7 +50,7 @@ class CupomResource extends Resource
         return $form
             ->schema([
                 Section::make('Dados do Cupom')
-                    ->description('Informe a chave de acesso e busque os dados da nota fiscal.')
+                    ->description('Leia o QRCode para buscar os dados da nota fiscal.')
                     ->schema([
                         Group::make([
                             View::make('components.qrcode-reader')
