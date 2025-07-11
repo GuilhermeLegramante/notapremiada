@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\View;
 use Filament\Tables\Columns\IconColumn;
+use JeffersonGoncalves\Filament\QrCodeField\Forms\Components\QrCodeInput;
 
 class CupomResource extends Resource
 {
@@ -62,8 +63,7 @@ class CupomResource extends Resource
                             //     ->reactive()
                             //     ->maxLength(255),
 
-                            BarcodeInput::make('chave_acesso')
-                                ->icon('heroicon-o-arrow-right') // Specify your Heroicon name here
+                            QrCodeInput::make('chave_acesso')
                                 ->reactive()
                                 ->required(),
 

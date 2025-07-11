@@ -7,11 +7,12 @@
     "require": {
         "php": "^8.1",
         "bezhansalleh/filament-shield": "^3.3",
-        "designthebox/barcode-field": "*",
+        "designthebox/barcode-field": "^0.0.6",
         "filament/filament": "3.2",
         "filament/notifications": "^3.2",
         "filipfonal/filament-log-manager": "^2.1",
         "guzzlehttp/guzzle": "^7.2",
+        "jeffersongoncalves/filament-qrcode-field": "^1.1",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
