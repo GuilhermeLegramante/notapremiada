@@ -40,10 +40,8 @@
 
                             // aqui está pegando null no decodedText como testo pra ver se tem algum valor?
 
-                            alert(decodedText);
-
                             // Exemplo de chamada de outro método se necessário
-                            livewireComponent.call('getNfData');
+                            livewireComponent.call('getNfData', decodedText);
                         }
 
                         scannerInstance = null;

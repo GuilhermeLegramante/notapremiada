@@ -45,11 +45,12 @@ class CreateCupom extends CreateRecord
         return $data;
     }
 
-    public function getNfData()
+    public function getNfData($qrCode = null)
     {
+        dd($qrCode);
+
         $chave = $this->form->getState()['chave_acesso'] ?? null;
 
-        dd($chave);
 
         $dados = NotaFiscalService::getDataFromQrCode($chave);
 
