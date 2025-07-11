@@ -64,9 +64,9 @@ class CupomResource extends Resource
                                 ->reactive()
                                 ->maxLength(255),
 
-                            QrCodeInput::make('chave_acesso')
-                                ->reactive()
-                                ->required(),
+                            // QrCodeInput::make('chave_acesso')
+                            //     ->reactive()
+                            //     ->required(),
 
                             \Filament\Forms\Components\Actions::make([
                                 Action::make('getData')
