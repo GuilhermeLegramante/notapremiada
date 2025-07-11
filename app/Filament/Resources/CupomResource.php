@@ -55,12 +55,17 @@ class CupomResource extends Resource
                             View::make('components.qrcode-reader')
                                 ->visible(fn() => true),
 
-                            TextInput::make('chave_acesso')
-                                ->label('Chave de Acesso')
-                                // ->required()
-                                ->unique()
+                            // TextInput::make('chave_acesso')
+                            //     ->label('Chave de Acesso')
+                            //     // ->required()
+                            //     ->unique()
+                            //     ->reactive()
+                            //     ->maxLength(255),
+
+                            BarcodeInput::make('chave_acesso')
+                                ->icon('heroicon-o-arrow-right') // Specify your Heroicon name here
                                 ->reactive()
-                                ->maxLength(255),
+                                ->required(),
 
                             \Filament\Forms\Components\Actions::make([
                                 Action::make('getData')
