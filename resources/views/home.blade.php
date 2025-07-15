@@ -67,10 +67,10 @@
                     class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-blue-100 transition">
                     App para Android
                 </a>
-                <a href="{{ route('filament.admin.auth.login') }}" target="_blank"
+                {{-- <a href="{{ route('filament.admin.auth.login') }}" target="_blank"
                     class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-blue-100 transition">
                     Acesso para iOS
-                </a>
+                </a> --}}
             </div>
 
             <p class="mt-4 text-sm text-blue-200 italic">
@@ -141,7 +141,7 @@
     </section>
 
     <!-- Depoimentos -->
-    <section class="py-16 px-6 max-w-6xl mx-auto">
+    {{-- <section class="py-16 px-6 max-w-6xl mx-auto">
         <h2 class="text-3xl font-bold text-center mb-12">Depoimentos de Participantes</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="bg-white shadow rounded-xl p-6">
@@ -153,7 +153,7 @@
                 <p class="mt-4 font-bold text-primary">— João Pereira</p>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!-- Call to Action -->
     <section class="bg-gradient-to-r from-primaryDark via-primary to-primaryLight text-white py-20 text-center px-6">
@@ -164,10 +164,10 @@
                 class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-blue-100 transition">
                 App para Android
             </a>
-            <a href="{{ route('filament.admin.auth.login') }}" target="_blank"
+            {{-- <a href="{{ route('filament.admin.auth.login') }}" target="_blank"
                 class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-blue-100 transition">
                 Acesso para iOS
-            </a>
+            </a> --}}
         </div>
         <p class="mt-4 text-sm text-blue-200 italic">Disponível gratuitamente nas lojas de aplicativos ou pelo site.</p>
     </section>
