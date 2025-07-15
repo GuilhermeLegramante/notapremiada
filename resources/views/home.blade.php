@@ -31,7 +31,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3 sm:gap-4">
                 <img src="images/logo_nota_premiada.png" alt="Prefeitura de Cacequi" class="w-16 h-16 sm:w-20 sm:h-20">
-                <img src="images/logo_horizontal.png" alt="Prefeitura de Cacequi" class="w-20 h-20 object-contain">
+                <span class="text-white text-lg sm:text-xl font-bold text-center sm:text-left">
+                    Nota Premiada Cacequi
+                </span>
             </div>
             <div class="flex gap-3">
                 <a href="{{ route('filament.admin.auth.login') }}"
