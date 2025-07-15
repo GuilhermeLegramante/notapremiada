@@ -39,6 +39,10 @@
                 class="bg-white text-primary px-4 py-2 rounded-full font-semibold hover:bg-blue-100 transition text-sm sm:text-base">
                 Minha conta
             </a>
+            <a href="{{ route('filament.admin.auth.login') }}"
+                class="bg-white text-primary px-4 py-2 rounded-full font-semibold hover:bg-blue-100 transition text-sm sm:text-base">
+                Cadastre-se
+            </a>
         </div>
     </header>
 
@@ -132,13 +136,13 @@
     </section>
 
     <!-- Vídeo -->
-    <section class="bg-gray-100 py-16 px-6 text-center">
+    {{-- <section class="bg-gray-100 py-16 px-6 text-center">
         <h2 class="text-3xl font-bold mb-6">Assista e Entenda a Campanha</h2>
         <div class="max-w-4xl mx-auto aspect-video">
             <iframe class="w-full h-full rounded-xl" src="https://www.youtube.com/embed/SEU_ID_DO_VIDEO"
                 title="Vídeo Nota Premiada" frameborder="0" allowfullscreen></iframe>
         </div>
-    </section>
+    </section> --}}
 
     <!-- Depoimentos -->
     {{-- <section class="py-16 px-6 max-w-6xl mx-auto">
