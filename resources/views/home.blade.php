@@ -30,7 +30,7 @@
     <header class="bg-gradient-to-r from-primaryDark via-primary to-primaryLight shadow">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3 sm:gap-4">
-                <img src="images/P1.png" alt="Prefeitura de Cacequi" class="w-12 h-12 sm:w-14 sm:h-14">
+                <img src="images/P1.png" alt="Prefeitura de Cacequi" class="w-16 h-16 sm:w-20 sm:h-20">
                 <span class="text-white text-lg sm:text-xl font-bold text-center sm:text-left">
                     Nota Premiada Cacequi
                 </span>
