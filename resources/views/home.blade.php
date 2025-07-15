@@ -113,21 +113,21 @@
         <h2 class="text-3xl font-bold text-center mb-12">Resultados da Última Edição</h2>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto text-center">
             <div>
-                <p class="text-4xl font-bold text-primary">250.450</p>
+                <p class="text-4xl font-bold text-primary">+ 190 mil</p>
                 <p class="text-gray-700 mt-2">Cupons cadastrados</p>
             </div>
             <div>
-                <p class="text-4xl font-bold text-primary">236</p>
+                <p class="text-4xl font-bold text-primary">+ 100</p>
                 <p class="text-gray-700 mt-2">Empresas participantes</p>
             </div>
             <div>
-                <p class="text-4xl font-bold text-primary">R$ 11.250.000</p>
+                <p class="text-4xl font-bold text-primary">+ R$ 38.000.000,00</p>
                 <p class="text-gray-700 mt-2">Em notas cadastradas</p>
             </div>
-            <div>
+            {{-- <div>
                 <p class="text-4xl font-bold text-primary">3.200</p>
                 <p class="text-gray-700 mt-2">Downloads do app</p>
-            </div>
+            </div> --}}
         </div>
     </section>
 
