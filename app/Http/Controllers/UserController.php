@@ -62,7 +62,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'cpf' => $request->cpf,
+            'cpf' => $this->formatarCpf($request->cpf),
             'telefone' => $request->phone,
             'data_nascimento' => $request->birth_date,
         ]);
@@ -76,5 +76,12 @@ class UserController extends Controller
             'access_token' => $token,
             'token_type' => 'Bearer',
         ]);
+    }
+
+    // Função para aplicar a máscara ao CPF
+    private function formatarCpf($cpf)
+    {
+        $cpf = preg_replace('/\D/', '', $cpf); // Remove tudo que não é número
+        return vsprintf('%s%s%s.%s%s%s.%s%s%s-%s%s', str_split($cpf));
     }
 }
