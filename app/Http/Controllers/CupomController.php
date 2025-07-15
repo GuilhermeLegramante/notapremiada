@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cupom;
 use App\Models\User;
 use App\Services\NotaFiscalService;
 use Illuminate\Http\Request;
@@ -32,8 +33,8 @@ class CupomController extends Controller
             ], 400);
         }
 
-        // Verificar se a chave já foi cadastrada para este usuário
-        $existingCupom = $user->cupons()->where('chave_acesso', $chave)->first();
+        // Verificar se a chave já foi cadastrada
+        $existingCupom = Cupom::where('chave_acesso', $chave)->first();
 
         if ($existingCupom) {
             return response()->json([
