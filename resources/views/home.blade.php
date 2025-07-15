@@ -111,7 +111,7 @@
     <!-- Resultados -->
     <section class="bg-blue-50 py-16 px-6">
         <h2 class="text-3xl font-bold text-center mb-12">Resultados da Última Edição</h2>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto text-center">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto text-center">
             <div>
                 <p class="text-4xl font-bold text-primary">+ 190 mil</p>
                 <p class="text-gray-700 mt-2">Cupons cadastrados</p>
