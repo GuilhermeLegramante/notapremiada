@@ -35,17 +35,18 @@
                     Nota Premiada Cacequi
                 </span>
             </div>
-            <a href="{{ route('filament.admin.auth.login') }}"
-                class="bg-white text-primary px-4 py-2 rounded-full font-semibold hover:bg-blue-100 transition text-sm sm:text-base">
-                Minha conta
-            </a>
-            <a href="{{ route('filament.admin.auth.login') }}"
-                class="bg-white text-primary px-4 py-2 rounded-full font-semibold hover:bg-blue-100 transition text-sm sm:text-base">
-                Cadastre-se
-            </a>
+            <div class="flex gap-3">
+                <a href="{{ route('filament.admin.auth.login') }}"
+                    class="bg-white text-primary px-4 py-2 rounded-full font-semibold hover:bg-blue-100 transition text-sm sm:text-base">
+                    Minha conta
+                </a>
+                <a href="{{ route('filament.admin.auth.login') }}"
+                    class="bg-white text-primary px-4 py-2 rounded-full font-semibold hover:bg-blue-100 transition text-sm sm:text-base">
+                    Cadastre-se
+                </a>
+            </div>
         </div>
     </header>
-
 
     <!-- Hero -->
     <section class="relative bg-cover bg-center text-white py-20 text-center px-6"
