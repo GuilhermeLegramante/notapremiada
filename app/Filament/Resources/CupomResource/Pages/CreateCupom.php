@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\CupomResource\Pages;
 
 use App\Filament\Resources\CupomResource;
+use App\Models\Cupom;
 use App\Services\NotaFiscalService;
 use Filament\Actions;
 use Filament\Notifications\Notification;
@@ -35,6 +36,20 @@ class CreateCupom extends CreateRecord
 
             throw ValidationException::withMessages([
                 'chave_acesso' => 'Chave de acesso inválida. Verifique e tente novamente.',
+            ]);
+        }
+
+        // Aqui quero uma validação para que não tenha $data['chave_acesso'] duplicadas 
+        // Verifica se já existe a chave_acesso no banco
+        if (Cupom::where('chave_acesso', $data['chave_acesso'])->exists()) {
+            Notification::make()
+                ->title('Erro ao salvar')
+                ->body('Esta chave de acesso já foi cadastrada.')
+                ->danger()
+                ->send();
+
+            throw ValidationException::withMessages([
+                'chave_acesso' => 'Esta chave de acesso já foi cadastrada.',
             ]);
         }
 
