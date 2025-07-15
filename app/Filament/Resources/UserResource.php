@@ -19,6 +19,7 @@ use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Validation\Rule;
 use Leandrocfe\FilamentPtbrFormFields\Document;
 use Leandrocfe\FilamentPtbrFormFields\PhoneNumber;
 
@@ -48,8 +49,9 @@ class UserResource extends Resource
                 Document::make('cpf')
                     ->cpf()
                     ->required()
-                    ->unique()
-                    ->label('CPF')
+                    ->rules([
+                        fn($record) => Rule::unique('cupons', 'cpf')->ignore($record?->id),
+                    ])->label('CPF')
                     ->validation(true),
 
                 PhoneNumber::make('telefone')
