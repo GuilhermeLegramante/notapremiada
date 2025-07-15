@@ -86,15 +86,34 @@
         </div>
     </section>
 
-    <section class="bg-gradient-to-br from-primaryDark via-primaryDark/90 to-primaryDark py-16 px-6 sm:px-12 lg:px-24">
-        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-10">
-            <img src="images/logo_prefeitura.png" alt="Logo Prefeitura de Cacequi"
-                class="w-48 sm:w-60 md:w-72 lg:w-80 h-auto drop-shadow-lg transition-transform duration-300 hover:scale-105">
+    <section
+        class="relative bg-gradient-to-br from-primaryDark via-primaryDark/90 to-primaryDark py-16 px-6 sm:px-12 lg:px-24 overflow-hidden">
 
-            <img src="images/slogan_branco.png" alt="Slogan Prefeitura de Cacequi"
-                class="w-60 sm:w-72 md:w-80 lg:w-[22rem] h-auto drop-shadow-lg transition-transform duration-300 hover:scale-105">
+        <!-- Imagem de fundo esquerda (50% da largura) -->
+        <img src="images/bg-1.jpeg" alt=""
+            class="absolute inset-y-0 left-0 w-1/2 h-full object-cover opacity-20 pointer-events-none select-none">
+
+        <!-- Imagem de fundo direita (50% da largura) -->
+        <img src="images/bg-2.jpeg" alt=""
+            class="absolute inset-y-0 right-0 w-1/2 h-full object-cover opacity-20 pointer-events-none select-none">
+
+        <!-- Conteúdo principal -->
+        <div class="relative z-10 max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-10">
+            <!-- Lado esquerdo -->
+            <div class="w-full sm:w-1/2 flex justify-center mb-8 sm:mb-0">
+                <img src="images/logo_prefeitura.png" alt="Logo Prefeitura de Cacequi"
+                    class="w-48 sm:w-60 md:w-72 lg:w-80 h-auto drop-shadow-lg transition-transform duration-300 hover:scale-105">
+            </div>
+
+            <!-- Lado direito -->
+            <div class="w-full sm:w-1/2 flex justify-center">
+                <img src="images/slogan_branco.png" alt="Slogan Prefeitura de Cacequi"
+                    class="w-60 sm:w-72 md:w-80 lg:w-[22rem] h-auto drop-shadow-lg transition-transform duration-300 hover:scale-105">
+            </div>
         </div>
     </section>
+
+
 
 
 
@@ -193,7 +212,8 @@
         <div class="mt-8 flex flex-col sm:flex-row justify-center items-center gap-6">
             <img src="images/logo_prefeitura.png" alt="Logo Prefeitura de Cacequi" class="w-40 sm:w-48 md:w-56 h-auto">
 
-            <img src="images/slogan_branco.png" alt="Slogan Prefeitura de Cacequi" class="w-40 sm:w-60 md:w-72 h-auto">
+            <img src="images/slogan_branco.png" alt="Slogan Prefeitura de Cacequi"
+                class="w-40 sm:w-60 md:w-72 h-auto">
         </div>
 
     </section>
