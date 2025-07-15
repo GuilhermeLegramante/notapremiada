@@ -45,7 +45,7 @@
 
     <!-- Hero -->
     <section class="relative bg-cover bg-center text-white py-20 text-center px-6"
-        style="background-image: url('/images/bg-cacequi.jpg');">
+        style="background-image: url('/images/bg-cacequi.jpeg');">
         <!-- Overlay com gradiente -->
         <div class="absolute inset-0 bg-gradient-to-r from-primaryDark via-primary to-primaryLight opacity-80"></div>
 
