@@ -30,7 +30,7 @@ class AdminPanelProvider extends PanelProvider
         Table::configureUsing(function (Table $table) {
             $table->paginationPageOptions([10, 25, 50, 100]); // Não inclui -1, que é o "Ver todos"
         });
-        
+
         return $panel
             ->default()
             ->id('admin')
@@ -53,6 +53,9 @@ class AdminPanelProvider extends PanelProvider
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
                 \FilipFonal\FilamentLogManager\FilamentLogManager::make(),
             ])
+            ->brandLogo(asset('images/logo_nota_premiada.png'))
+            ->brandLogoHeight(fn() => auth()->check() ? '3rem' : '6rem')
+            ->favicon(asset('images/logo_nota_premiada.png'))
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->sidebarCollapsibleOnDesktop()
             ->widgets([
