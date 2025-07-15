@@ -34,6 +34,7 @@
                 <span class="text-white text-lg sm:text-xl font-bold text-center sm:text-left">
                     Nota Premiada Cacequi
                 </span>
+
             </div>
             <div class="flex gap-3">
                 <a href="{{ route('filament.admin.auth.login') }}"
@@ -44,6 +45,7 @@
                     class="bg-white text-primary px-4 py-2 rounded-full font-semibold hover:bg-blue-100 transition text-sm sm:text-base">
                     Cadastre-se
                 </a>
+
             </div>
         </div>
     </header>
@@ -84,6 +86,18 @@
         </div>
     </section>
 
+    <section class="bg-gradient-to-br from-primaryDark via-primaryDark/90 to-primaryDark py-16 px-6 sm:px-12 lg:px-24">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-10">
+            <img src="images/logo_prefeitura.png" alt="Logo Prefeitura de Cacequi"
+                class="w-48 sm:w-60 md:w-72 lg:w-80 h-auto drop-shadow-lg transition-transform duration-300 hover:scale-105">
+
+            <img src="images/slogan_branco.png" alt="Slogan Prefeitura de Cacequi"
+                class="w-60 sm:w-72 md:w-80 lg:w-[22rem] h-auto drop-shadow-lg transition-transform duration-300 hover:scale-105">
+        </div>
+    </section>
+
+
+
 
     <!-- Prêmios -->
     <section class="py-16 px-6 max-w-6xl mx-auto">
@@ -109,6 +123,7 @@
                 <h3 class="text-xl font-semibold mb-2">Smartphone Xiaomi Redmi Note 13</h3>
                 <p>Um Smartphone moderno para o seus estudos e dia-a-dia!</p>
             </div>
+
         </div>
     </section>
 
@@ -175,6 +190,12 @@
             </a> --}}
         </div>
         <p class="mt-4 text-sm text-blue-200 italic">Disponível gratuitamente nas lojas de aplicativos ou pelo site.</p>
+        <div class="mt-8 flex flex-col sm:flex-row justify-center items-center gap-6">
+            <img src="images/logo_prefeitura.png" alt="Logo Prefeitura de Cacequi" class="w-40 sm:w-48 md:w-56 h-auto">
+
+            <img src="images/slogan_branco.png" alt="Slogan Prefeitura de Cacequi" class="w-40 sm:w-60 md:w-72 h-auto">
+        </div>
+
     </section>
 
 
