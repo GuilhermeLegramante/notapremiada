@@ -50,7 +50,7 @@ class UserResource extends Resource
                     ->cpf()
                     ->required()
                     ->rules([
-                        fn($record) => Rule::unique('cupons', 'cpf')->ignore($record?->id),
+                        fn($record) => Rule::unique('users', 'cpf')->ignore($record?->id),
                     ])->label('CPF')
                     ->validation(true),
 
