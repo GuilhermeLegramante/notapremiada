@@ -43,16 +43,10 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $cpf = preg_replace('/\D/', '', $request->cpf); // Garante que só números
+        // Formata o CPF para aplicar a máscara
+        $cpfFormatado = $this->formatarCpf($request->cpf);
 
-        if (!$this->cpfEhValido($cpf)) {
-            return response()->json([
-                'errors' => ['cpf' => ['CPF inválido.']],
-            ], 422);
-        }
-
-        $cpfFormatado = $this->formatarCpf($cpf);
-
+        // Verifica se já existe usuário com esse CPF formatado
         if (User::where('cpf', $cpfFormatado)->exists()) {
             return response()->json([
                 'errors' => ['cpf' => ['CPF já cadastrado.']],
@@ -72,19 +66,20 @@ class UserController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        // Criação do usuário
+        // Criando o usuário
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'cpf' => $cpfFormatado,
+            'cpf' => $this->formatarCpf($request->cpf),
             'telefone' => $request->phone,
             'data_nascimento' => $request->birth_date,
         ]);
 
-        // Token
+        // Gerando o token para o novo usuário
         $token = $user->createToken('NotaPremiadaApp')->plainTextToken;
 
+        // Retornando resposta
         return response()->json([
             'user' => new UserResource($user),
             'access_token' => $token,
@@ -92,30 +87,10 @@ class UserController extends Controller
         ]);
     }
 
-    // Aplica máscara no CPF
+    // Função para aplicar a máscara ao CPF
     private function formatarCpf($cpf)
     {
+        $cpf = preg_replace('/\D/', '', $cpf); // Remove tudo que não é número
         return vsprintf('%s%s%s.%s%s%s.%s%s%s-%s%s', str_split($cpf));
-    }
-
-    // Verifica se o CPF é matematicamente válido
-    private function cpfEhValido($cpf)
-    {
-        if (strlen($cpf) != 11 || preg_match('/(\d)\1{10}/', $cpf)) {
-            return false;
-        }
-
-        for ($t = 9; $t < 11; $t++) {
-            $d = 0;
-            for ($c = 0; $c < $t; $c++) {
-                $d += $cpf[$c] * (($t + 1) - $c);
-            }
-            $d = ((10 * $d) % 11) % 10;
-            if ($cpf[$c] != $d) {
-                return false;
-            }
-        }
-
-        return true;
     }
 }
