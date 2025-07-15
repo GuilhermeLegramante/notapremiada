@@ -43,12 +43,21 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        // Validando os dados de entrada
+        // Formata o CPF para aplicar a máscara
+        $cpfFormatado = $this->formatarCpf($request->cpf);
+
+        // Verifica se já existe usuário com esse CPF formatado
+        if (User::where('cpf', $cpfFormatado)->exists()) {
+            return response()->json([
+                'errors' => ['cpf' => ['CPF já cadastrado.']],
+            ], 422);
+        }
+
+        // Validação dos demais campos
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'cpf' => 'required|string|max:14|unique:users',
             'phone' => 'required|string|max:15',
             'birth_date' => 'required|date',
         ]);
