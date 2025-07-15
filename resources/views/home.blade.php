@@ -121,7 +121,7 @@
                 <p class="text-gray-700 mt-2">Empresas participantes</p>
             </div>
             <div>
-                <p class="text-4xl font-bold text-primary">+ R$ 38.000.000,00</p>
+                <p class="text-4xl font-bold text-primary">+ R$ 38 milhões</p>
                 <p class="text-gray-700 mt-2">Em notas cadastradas</p>
             </div>
             {{-- <div>
