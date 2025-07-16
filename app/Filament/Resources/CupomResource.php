@@ -92,7 +92,10 @@ class CupomResource extends Resource
                     ->label('Números p/ Sorteio')
                     ->formatStateUsing(
                         fn($record) =>
-                        $record->numerosSorteio->pluck('id')->implode(', ')
+                        $record->numerosSorteio
+                            ->pluck('id')
+                            ->map(fn($id) => str_pad($id, 6, '0', STR_PAD_LEFT))
+                            ->implode(', ')
                     ),
                 TextColumn::make('data_cadastro')
                     ->label('Data do Cadastro')

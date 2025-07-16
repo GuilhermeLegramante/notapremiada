@@ -28,6 +28,16 @@ Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->
 
 Route::post('register', [UserController::class, 'store']);
 
+// routes/api.php
+Route::get('/versao-app', function () {
+    return response()->json([
+        'minima' => '1.0.0', // versão mínima obrigatória
+        'ultima' => '1.0.5', // versão mais recente disponível
+        'url_android' => 'https://notapremiada-cacequi.hardsoftsistemas.com/apk/Nota%20Premiada.apk',
+    ]);
+});
+
+
 // Rotas protegidas por autenticação Sanctum F
 Route::middleware('auth:sanctum')->group(function () {
     // Perfil do usuário
