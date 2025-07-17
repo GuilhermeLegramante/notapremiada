@@ -28,7 +28,8 @@
     <p><strong>Última atualização:</strong> 17 de julho de 2025</p>
 
     <p>Esta Política de Privacidade descreve como coletamos, usamos e protegemos suas informações pessoais no sistema
-        <strong>Nota Premiada de Cacequi</strong>, de responsabilidade da Prefeitura Municipal de Cacequi.</p>
+        <strong>Nota Premiada de Cacequi</strong>, de responsabilidade da Prefeitura Municipal de Cacequi.
+    </p>
 
     <h2>1. Coleta de Informações</h2>
     <p>Ao se cadastrar e utilizar o sistema Nota Premiada, poderemos coletar as seguintes informações:</p>
@@ -93,6 +94,10 @@
     </ul>
 
     <p><em>Ao utilizar o sistema Nota Premiada, você concorda com os termos desta Política de Privacidade.</em></p>
+
+    <a href="{{ route('exclusao.dados') }}" class="underline text-red-500 hover:text-red-700" target="_blank">
+        Solicitar Exclusão de Dados
+    </a>
 
 </body>
 

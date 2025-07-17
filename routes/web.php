@@ -2,6 +2,7 @@
 
 use App\Filament\Pages\Register;
 use App\Http\Controllers\LandingPageController;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 
@@ -39,3 +40,16 @@ Route::get('/', [LandingPageController::class, 'index']);
 
 
 Route::get('/user/register', Register::class)->name('filament.user.auth.register');
+
+Route::view('/exclusao-de-dados', 'exclusao-dados')->name('exclusao.dados');
+
+Route::post('/exclusao-de-dados/enviar', function (\Illuminate\Http\Request $request) {
+    // Aqui você pode armazenar no banco, enviar e-mail, etc.
+    // Exemplo: envio de e-mail (se configurado)
+    Mail::raw("Solicitação de exclusão de dados:\n\n" . print_r($request->all(), true), function ($message) use ($request) {
+        $message->to('guilhermelegramante@gmail.com')
+            ->subject('Solicitação de Exclusão de Dados - Nota Premiada');
+    });
+
+    return back()->with('success', 'Sua solicitação foi enviada com sucesso.');
+})->name('exclusao.enviar');
