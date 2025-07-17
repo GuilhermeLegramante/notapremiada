@@ -78,10 +78,10 @@ class Cupom extends Model
 
                 Log::info("Gerados {$quantidadeNumeros} número(s) para o cupom #{$cupom->id} do usuário #{$user->id}");
 
-                if ($quantidadeNumeros > 0 && $adminEmail = env('ADMIN_EMAIL')) {
-                    Notification::route('mail', $adminEmail)
-                        ->notify(new NumerosSorteioGeradosNotification($cupom, $quantidadeNumeros, $numerosGerados));
-                }
+                // if ($quantidadeNumeros > 0 && $adminEmail = env('ADMIN_EMAIL')) {
+                //     Notification::route('mail', $adminEmail)
+                //         ->notify(new NumerosSorteioGeradosNotification($cupom, $quantidadeNumeros, $numerosGerados));
+                // }
             });
         });
     }
