@@ -98,6 +98,8 @@ class CupomResource extends Resource
             ->columns([
                 TextColumn::make('numerosSorteio')
                     ->label('Números p/ Sorteio')
+                    ->sortable()
+                    ->searchable()
                     ->formatStateUsing(
                         fn($record) =>
                         $record->numerosSorteio
@@ -106,14 +108,23 @@ class CupomResource extends Resource
                             ->implode(', ')
                     ),
                 TextColumn::make('data_cadastro')
+                    ->sortable()
+                    ->searchable()
                     ->label('Data do Cadastro')
                     ->date(),
                 TextColumn::make('user.name')
+                    ->sortable()
+                    ->searchable()
                     ->label('Usuário'),
                 TextColumn::make('fornecedor'),
                 // TextColumn::make('chave_acesso'),
-                TextColumn::make('valor_total')->money('BRL'),
+                TextColumn::make('valor_total')
+                    ->sortable()
+                    ->summarize()
+                    ->searchable()
+                    ->money('BRL'),
                 IconColumn::make('validado')
+                    ->sortable()
                     ->boolean()
                     ->label('Validado'),
             ])
