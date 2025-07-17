@@ -99,7 +99,6 @@ class CupomResource extends Resource
             ->columns([
                 TextColumn::make('numerosSorteio')
                     ->label('Números p/ Sorteio')
-                    ->sortable()
                     ->searchable()
                     ->formatStateUsing(
                         fn($record) =>
