@@ -32,6 +32,9 @@ Route::get('/teste', function () {
 
     dd($p);
 });
+
+Route::view('/politica-de-privacidade', 'terms')->name('politica.privacidade');
+
 Route::get('/', [LandingPageController::class, 'index']);
 
 

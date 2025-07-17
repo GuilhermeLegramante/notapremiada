@@ -4,13 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CupomResource\Pages\CreateCupom;
 use App\Filament\Resources\CupomResource\Pages\ListCupoms;
-use App\Filament\User\Resources\CupomResource\Pages;
-use App\Filament\User\Resources\CupomResource\RelationManagers;
 use App\Models\Cupom;
-use App\Services\NotaFiscalService;
-use DesignTheBox\BarcodeField\Forms\Components\BarcodeInput;
-use Filament\Forms;
-use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
@@ -21,11 +15,9 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\View;
 use Filament\Tables\Columns\IconColumn;
-use JeffersonGoncalves\Filament\QrCodeField\Forms\Components\QrCodeInput;
+use Filament\Forms\Components\Button;
 
 class CupomResource extends Resource
 {
@@ -57,22 +49,30 @@ class CupomResource extends Resource
                                 ->reactive()
                                 ->visible(fn() => true),
 
+                            View::make('components.manual-button'),
+
+                            TextInput::make('chave_acesso')
+                                ->label('Chave de Acesso')
+                                ->unique()
+                                ->maxLength(44)
+                                ->visible(fn($livewire) => $livewire->isManual),
+
                             TextInput::make('valor_total')
                                 ->label('Valor Total')
                                 ->numeric()
-                                ->readOnly()
+                                ->readOnly(fn($livewire) => !$livewire->isManual)
                                 ->prefix('R$')
                                 ->required()
                                 ->visible(fn($livewire) => $livewire->loadData),
 
                             TextInput::make('fornecedor')
-                                ->readOnly()
+                                ->readOnly(fn($livewire) => !$livewire->isManual)
                                 ->maxLength(255)
                                 ->visible(fn($livewire) => $livewire->loadData),
 
                             DatePicker::make('data_emissao')
                                 ->label('Data de Emissão')
-                                ->readOnly()
+                                ->readOnly(fn($livewire) => !$livewire->isManual)
                                 ->visible(fn($livewire) => $livewire->loadData),
 
                             Textarea::make('observacao')

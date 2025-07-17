@@ -20,6 +20,8 @@ class CreateCupom extends CreateRecord
     public $loadData = false;
     public $validado = false;
 
+    public $isManual = false;
+
     public function getTitle(): string | Htmlable
     {
         return 'Cadastrar Cupom';
@@ -58,6 +60,12 @@ class CreateCupom extends CreateRecord
         $data['validado'] = $this->validado;
 
         return $data;
+    }
+
+    public function ativarCadastroManual()
+    {
+        $this->loadData = true;
+        $this->isManual = true;
     }
 
     public function getNfData($qrCode = null)

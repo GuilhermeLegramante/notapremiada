@@ -247,7 +247,8 @@
         class="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 z-50">
         <p class="text-sm max-w-xl">
             Usamos cookies para melhorar sua experiência no site. Ao continuar navegando, você concorda com nossa
-            <a href="#" class="underline text-blue-400 hover:text-blue-600" target="_blank">Política de
+            <a href="{{ route('politica.privacidade') }}" class="underline text-blue-400 hover:text-blue-600"
+                target="_blank">Política de
                 Privacidade</a>.
         </p>
         <button id="accept-cookies" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded">
