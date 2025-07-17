@@ -49,7 +49,7 @@ class CupomResource extends Resource
                                 ->reactive()
                                 ->visible(fn() => true),
 
-                            View::make('components.manual-button'),
+                            // View::make('components.manual-button'),
 
                             TextInput::make('chave_acesso')
                                 ->label('Chave de Acesso')
