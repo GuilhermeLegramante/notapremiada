@@ -89,7 +89,7 @@
     <ul>
         <li><strong>Telefone:</strong> (55) 3254-2200</li>
         <li><strong>E-mail:</strong> <a href="mailto:contato@cacequi.rs.gov.br">contato@cacequi.rs.gov.br</a></li>
-        <li><strong>Endereço:</strong> Praça XYZ, nº 123, Centro, Cacequi - RS</li>
+        <li><strong>Endereço:</strong> R. Bento Gonçalves, 363 - Cacequi, RS</li>
     </ul>
 
     <p><em>Ao utilizar o sistema Nota Premiada, você concorda com os termos desta Política de Privacidade.</em></p>
