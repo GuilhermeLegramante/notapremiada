@@ -115,8 +115,9 @@ class CupomResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->label('Usuário'),
-                TextColumn::make('fornecedor'),
-                // TextColumn::make('chave_acesso'),
+                TextColumn::make('fornecedor')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('valor_total')
                     ->sortable()
                     ->summarize(Sum::make()->label('Total')->money('BRL'))
