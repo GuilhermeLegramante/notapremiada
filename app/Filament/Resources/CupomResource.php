@@ -18,6 +18,7 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\View;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Forms\Components\Button;
+use Filament\Tables\Columns\Summarizers\Sum;
 
 class CupomResource extends Resource
 {
@@ -120,7 +121,7 @@ class CupomResource extends Resource
                 // TextColumn::make('chave_acesso'),
                 TextColumn::make('valor_total')
                     ->sortable()
-                    ->summarize()
+                    ->summarize(Sum::make()->label('Total')->money('BRL'))
                     ->searchable()
                     ->money('BRL'),
                 IconColumn::make('validado')
