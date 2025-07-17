@@ -16,6 +16,7 @@ class CreateCupom extends CreateRecord
     protected static string $resource = CupomResource::class;
 
     public $chave_acesso = '';
+    public $preview_chave = null;
 
     public $loadData = false;
     public $validado = false;
@@ -29,17 +30,17 @@ class CreateCupom extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        if (! $this->validado) {
-            Notification::make()
-                ->title('Erro ao salvar')
-                ->body('A chave de acesso informada é inválida. Não é possível salvar o cupom.')
-                ->danger()
-                ->send();
+        // if (! $this->validado) {
+        //     Notification::make()
+        //         ->title('Erro ao salvar')
+        //         ->body('A chave de acesso informada é inválida. Não é possível salvar o cupom.')
+        //         ->danger()
+        //         ->send();
 
-            throw ValidationException::withMessages([
-                'chave_acesso' => 'Chave de acesso inválida. Verifique e tente novamente.',
-            ]);
-        }
+        //     throw ValidationException::withMessages([
+        //         'chave_acesso' => 'Chave de acesso inválida. Verifique e tente novamente.',
+        //     ]);
+        // }
 
         // Aqui quero uma validação para que não tenha $data['chave_acesso'] duplicadas 
         // Verifica se já existe a chave_acesso no banco

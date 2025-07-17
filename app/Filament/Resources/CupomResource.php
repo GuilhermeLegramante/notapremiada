@@ -49,13 +49,20 @@ class CupomResource extends Resource
                                 ->reactive()
                                 ->visible(fn() => true),
 
-                            // View::make('components.manual-button'),
+                            View::make('components.manual-button'),
 
                             TextInput::make('chave_acesso')
                                 ->label('Chave de Acesso')
                                 ->unique()
                                 ->maxLength(44)
-                                ->visible(fn($livewire) => $livewire->isManual),
+                                ->reactive()
+                                ->visible(fn($livewire) => $livewire->isManual)
+                                ->afterStateUpdated(fn($state, callable $set) => $set('preview_chave', $state)),
+
+                            View::make('components.sefaz-preview')
+                                ->visible(fn($livewire) => $livewire->isManual)
+                                ->reactive()
+                                ->statePath('preview_chave'),
 
                             TextInput::make('valor_total')
                                 ->label('Valor Total')
@@ -113,8 +120,13 @@ class CupomResource extends Resource
             ->actions([
                 Tables\Actions\Action::make('verNota')
                     ->label('Ver Nota')
-                    ->icon('heroicon-o-eye')
-                    ->url(fn($record) => "https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p={$record->chave_acesso}")
+                    ->icon('heroicon-o-document-text')
+                    ->url(
+                        fn($record) =>
+                        $record->validado
+                            ? "https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p={$record->chave_acesso}"
+                            : "https://www.sefaz.rs.gov.br/NFE/NFE-NFC.aspx?chaveNFe={$record->chave_acesso}"
+                    )
                     ->openUrlInNewTab(),
                 Tables\Actions\DeleteAction::make(),
             ])
