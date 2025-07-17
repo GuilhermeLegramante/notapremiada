@@ -94,7 +94,7 @@ class CupomResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->defaultSort('numerosSorteio.id', 'desc')
+            ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('numerosSorteio')
                     ->label('Números p/ Sorteio')
