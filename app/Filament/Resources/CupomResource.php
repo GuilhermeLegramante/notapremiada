@@ -96,13 +96,9 @@ class CupomResource extends Resource
     {
         return $table
             ->defaultSort('id', 'desc')
-            ->query(
-                Cupom::query()->with('numerosSorteio') 
-            )
             ->columns([
                 TextColumn::make('numerosSorteio')
                     ->label('Números p/ Sorteio')
-                    ->sortable()
                     ->formatStateUsing(
                         fn($record) =>
                         $record->numerosSorteio
