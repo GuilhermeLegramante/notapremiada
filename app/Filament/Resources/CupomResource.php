@@ -62,8 +62,8 @@ class CupomResource extends Resource
                             TextInput::make('chave_acesso')
                                 ->label('Chave de Acesso')
                                 ->unique()
-                                // ->maxLength(44)
-                                // ->minLength(44)
+                                ->maxLength(44)
+                                ->minLength(44)
                                 ->reactive()
                                 ->visible(fn($livewire) => $livewire->isManual)
                                 ->suffixAction(
