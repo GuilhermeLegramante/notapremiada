@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CupomResource\Pages\CreateCupom;
 use App\Filament\Resources\CupomResource\Pages\ListCupoms;
 use App\Models\Cupom;
+use Filament\Forms\Components\Actions;
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
@@ -18,6 +20,7 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\View;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Forms\Components\Button;
+use Filament\Forms\Components\Grid;
 use Filament\Tables\Columns\Summarizers\Sum;
 
 class CupomResource extends Resource
@@ -56,12 +59,22 @@ class CupomResource extends Resource
                                 ->label('Chave de Acesso')
                                 ->unique()
                                 ->maxLength(44)
+                                ->minLength(44)
                                 ->reactive()
+                                ->afterStateUpdated(fn($state, callable $set) => $set('preview_chave', $state))
                                 ->visible(fn($livewire) => $livewire->isManual)
-                                ->afterStateUpdated(fn($state, callable $set) => $set('preview_chave', $state)),
-
+                                ->suffixAction(
+                                    Action::make('buscarNota')
+                                        ->icon('heroicon-o-magnifying-glass')
+                                        ->tooltip('Buscar nota fiscal')
+                                        ->disabled(fn($get) => strlen($get('chave_acesso')) !== 44)
+                                        ->action(function ($livewire) {
+                                            $livewire->mostrarPreview = true;
+                                        })
+                                ),
+                                
                             View::make('components.sefaz-preview')
-                                ->visible(fn($livewire) => $livewire->isManual)
+                                ->visible(fn($livewire) => $livewire->isManual && $livewire->mostrarPreview)
                                 ->reactive()
                                 ->statePath('preview_chave'),
 

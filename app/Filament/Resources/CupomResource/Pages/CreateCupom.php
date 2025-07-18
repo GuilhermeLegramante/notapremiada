@@ -20,6 +20,7 @@ class CreateCupom extends CreateRecord
 
     public $loadData = false;
     public $validado = false;
+    public $mostrarPreview = false;
 
     public $isManual = false;
 
@@ -67,6 +68,11 @@ class CreateCupom extends CreateRecord
     {
         $this->loadData = true;
         $this->isManual = true;
+    }
+
+    public function buscarNotaFiscal()
+    {
+        $this->mostrarPreview = true;
     }
 
     public function getNfData($qrCode = null)
