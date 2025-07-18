@@ -22,6 +22,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Forms\Components\Button;
 use Filament\Forms\Components\Grid;
 use Filament\Tables\Columns\Summarizers\Sum;
+use Illuminate\Validation\Rule;
 
 class CupomResource extends Resource
 {
@@ -62,18 +63,20 @@ class CupomResource extends Resource
                                 ->minLength(44)
                                 ->reactive()
                                 ->visible(fn($livewire) => $livewire->isManual)
-                                ->rules([
-                                    function ($attribute, $value, $fail) {
+                                ->rule(
+                                    Rule::callback(function ($value) {
                                         $existeChaveSimilar = Cupom::query()
                                             ->where('chave_acesso', 'LIKE', "%{$value}%")
                                             ->orWhereRaw('? LIKE CONCAT("%", chave_acesso, "%")', [$value])
                                             ->exists();
 
                                         if ($existeChaveSimilar) {
-                                            $fail("Chave já cadastrada.");
+                                            return __('Já existe um cupom com chave similar.');
                                         }
-                                    },
-                                ])
+
+                                        return true;
+                                    })
+                                )
                                 ->suffixAction(
                                     Action::make('buscarNota')
                                         ->icon('heroicon-o-magnifying-glass')
