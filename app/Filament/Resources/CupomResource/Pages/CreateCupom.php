@@ -63,6 +63,16 @@ class CreateCupom extends CreateRecord
         $data['data_cadastro'] = now();
         $data['validado'] = $this->validado;
 
+        if (
+            Cupom::where('chave_acesso', 'LIKE', "%{$data['chave_acesso']}%")
+            ->orWhereRaw('? LIKE CONCAT("%", chave_acesso, "%")', [$data['chave_acesso']])
+            ->exists()
+        ) {
+            throw ValidationException::withMessages([
+                'chave_acesso' => 'Já existe um cupom com chave semelhante.',
+            ]);
+        }
+
         return $data;
     }
 
@@ -75,11 +85,6 @@ class CreateCupom extends CreateRecord
     public function buscarNotaFiscal()
     {
         $this->mostrarPreview = true;
-
-        if (Cupom::where('chave_acesso', 'like', '%' . $this->chave_acesso . '%')) {
-            $this->invalidateForm('Chave de acesso já cadastrada', 'Verifique a chave e tente novamente.');
-            return;
-        }
     }
 
     public function getNfData($qrCode = null)
