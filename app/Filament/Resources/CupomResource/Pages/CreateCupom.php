@@ -24,6 +24,8 @@ class CreateCupom extends CreateRecord
 
     public $isManual = false;
 
+    protected static bool $canCreateAnother = false;
+
     public function getTitle(): string | Htmlable
     {
         return 'Cadastrar Cupom';
