@@ -70,7 +70,7 @@ class CupomResource extends Resource
                                             ->exists();
 
                                         if ($existeChaveSimilar) {
-                                            $fail("Já existe um cupom com chave similar a '{$value}'.");
+                                            $fail("Chave já cadastrada.");
                                         }
                                     },
                                 ])
