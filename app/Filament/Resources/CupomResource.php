@@ -67,8 +67,9 @@ class CupomResource extends Resource
                                     Action::make('buscarNota')
                                         ->icon('heroicon-o-magnifying-glass')
                                         ->tooltip('Buscar nota fiscal')
-                                        ->disabled(fn($get) => strlen($get('chave_acesso')) !== 44)
-                                        ->action(function ($livewire) {
+                                        // ->disabled(fn($get) => strlen($get('chave_acesso')) !== 44)
+                                        ->action(function ($livewire, $set, $get) {
+                                            $set('preview_chave', $get('chave_acesso'));
                                             $livewire->mostrarPreview = true;
                                         })
                                 ),
