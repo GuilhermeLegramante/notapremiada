@@ -63,16 +63,6 @@ class CreateCupom extends CreateRecord
         $data['data_cadastro'] = now();
         $data['validado'] = $this->validado;
 
-        if (
-            Cupom::where('chave_acesso', 'LIKE', "%{$data['chave_acesso']}%")
-            ->orWhereRaw('? LIKE CONCAT("%", chave_acesso, "%")', [$data['chave_acesso']])
-            ->exists()
-        ) {
-            throw ValidationException::withMessages([
-                'chave_acesso' => 'Já existe um cupom com chave semelhante.',
-            ]);
-        }
-
         return $data;
     }
 

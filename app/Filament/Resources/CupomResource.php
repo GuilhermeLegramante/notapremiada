@@ -21,8 +21,11 @@ use Filament\Forms\Components\View;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Forms\Components\Button;
 use Filament\Forms\Components\Grid;
+use Filament\Notifications\Notification;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Callback;
+use Illuminate\Validation\ValidationException;
 
 class CupomResource extends Resource
 {
@@ -59,8 +62,8 @@ class CupomResource extends Resource
                             TextInput::make('chave_acesso')
                                 ->label('Chave de Acesso')
                                 ->unique()
-                                ->maxLength(44)
-                                ->minLength(44)
+                                // ->maxLength(44)
+                                // ->minLength(44)
                                 ->reactive()
                                 ->visible(fn($livewire) => $livewire->isManual)
                                 ->suffixAction(
@@ -69,7 +72,24 @@ class CupomResource extends Resource
                                         ->tooltip('Buscar nota fiscal')
                                         ->action(function ($livewire, $set, $get) {
                                             $set('preview_chave', $get('chave_acesso'));
-                                            $livewire->mostrarPreview = true;
+
+                                            if (
+                                                \App\Models\Cupom::where('chave_acesso', 'LIKE', "%{$get('chave_acesso')}%")
+                                                ->orWhereRaw('? LIKE CONCAT("%", chave_acesso, "%")', [$get('chave_acesso')])
+                                                ->exists()
+                                            ) {
+                                                $livewire->loadData = false;
+                                                $livewire->mostrarPreview = false;
+
+                                                Notification::make()
+                                                    ->title('Chave de acesso inválida')
+                                                    ->danger()
+                                                    ->body('Chava de acesso já cadastrada')
+                                                    ->send();
+                                            } else {
+                                                $livewire->mostrarPreview = true;
+                                                $livewire->loadData = true;
+                                            }
                                         })
                                 ),
 
