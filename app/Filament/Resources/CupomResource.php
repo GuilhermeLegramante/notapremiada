@@ -61,13 +61,23 @@ class CupomResource extends Resource
                                 ->maxLength(44)
                                 ->minLength(44)
                                 ->reactive()
-                                // ->afterStateUpdated(fn($state, callable $set) => $set('preview_chave', $state))
                                 ->visible(fn($livewire) => $livewire->isManual)
+                                ->rules([
+                                    function ($attribute, $value, $fail) {
+                                        $existeChaveSimilar = Cupom::query()
+                                            ->where('chave_acesso', 'LIKE', "%{$value}%")
+                                            ->orWhereRaw('? LIKE CONCAT("%", chave_acesso, "%")', [$value])
+                                            ->exists();
+
+                                        if ($existeChaveSimilar) {
+                                            $fail("Já existe um cupom com chave similar a '{$value}'.");
+                                        }
+                                    },
+                                ])
                                 ->suffixAction(
                                     Action::make('buscarNota')
                                         ->icon('heroicon-o-magnifying-glass')
                                         ->tooltip('Buscar nota fiscal')
-                                        // ->disabled(fn($get) => strlen($get('chave_acesso')) !== 44)
                                         ->action(function ($livewire, $set, $get) {
                                             $set('preview_chave', $get('chave_acesso'));
                                             $livewire->mostrarPreview = true;
