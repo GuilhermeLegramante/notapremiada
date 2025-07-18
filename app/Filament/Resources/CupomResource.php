@@ -61,7 +61,7 @@ class CupomResource extends Resource
                                 ->maxLength(44)
                                 ->minLength(44)
                                 ->reactive()
-                                ->afterStateUpdated(fn($state, callable $set) => $set('preview_chave', $state))
+                                // ->afterStateUpdated(fn($state, callable $set) => $set('preview_chave', $state))
                                 ->visible(fn($livewire) => $livewire->isManual)
                                 ->suffixAction(
                                     Action::make('buscarNota')
@@ -72,7 +72,7 @@ class CupomResource extends Resource
                                             $livewire->mostrarPreview = true;
                                         })
                                 ),
-                                
+
                             View::make('components.sefaz-preview')
                                 ->visible(fn($livewire) => $livewire->isManual && $livewire->mostrarPreview)
                                 ->reactive()
