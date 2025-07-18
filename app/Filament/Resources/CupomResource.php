@@ -63,20 +63,20 @@ class CupomResource extends Resource
                                 ->minLength(44)
                                 ->reactive()
                                 ->visible(fn($livewire) => $livewire->isManual)
-                                ->rule(
-                                    Rule::callback(function ($value) {
-                                        $existeChaveSimilar = Cupom::query()
-                                            ->where('chave_acesso', 'LIKE', "%{$value}%")
-                                            ->orWhereRaw('? LIKE CONCAT("%", chave_acesso, "%")', [$value])
-                                            ->exists();
+                                // ->rule(
+                                //     Rule::callback(function ($value) {
+                                //         $existeChaveSimilar = Cupom::query()
+                                //             ->where('chave_acesso', 'LIKE', "%{$value}%")
+                                //             ->orWhereRaw('? LIKE CONCAT("%", chave_acesso, "%")', [$value])
+                                //             ->exists();
 
-                                        if ($existeChaveSimilar) {
-                                            return __('Já existe um cupom com chave similar.');
-                                        }
+                                //         if ($existeChaveSimilar) {
+                                //             return __('Já existe um cupom com chave similar.');
+                                //         }
 
-                                        return true;
-                                    })
-                                )
+                                //         return true;
+                                //     })
+                                // )
                                 ->suffixAction(
                                     Action::make('buscarNota')
                                         ->icon('heroicon-o-magnifying-glass')
