@@ -59,7 +59,7 @@ class CupomResource extends Resource
 
                             View::make('components.manual-button'),
 
-                            TextInput::make('chave_acesso_manual')
+                            TextInput::make('chave_acesso')
                                 ->label('Chave de Acesso')
                                 ->unique()
                                 ->maxLength(44)
@@ -71,11 +71,11 @@ class CupomResource extends Resource
                                         ->icon('heroicon-o-magnifying-glass')
                                         ->tooltip('Buscar nota fiscal')
                                         ->action(function ($livewire, $set, $get) {
-                                            $set('preview_chave', $get('chave_acesso_manual'));
+                                            $set('preview_chave', $get('chave_acesso'));
 
                                             if (
-                                                \App\Models\Cupom::where('chave_acesso', 'LIKE', "%{$get('chave_acesso_manual')}%")
-                                                ->orWhereRaw('? LIKE CONCAT("%", chave_acesso, "%")', [$get('chave_acesso_manual')])
+                                                \App\Models\Cupom::where('chave_acesso', 'LIKE', "%{$get('chave_acesso')}%")
+                                                ->orWhereRaw('? LIKE CONCAT("%", chave_acesso, "%")', [$get('chave_acesso')])
                                                 ->exists()
                                             ) {
                                                 $livewire->loadData = false;
