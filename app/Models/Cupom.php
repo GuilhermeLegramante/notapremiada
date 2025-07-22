@@ -76,7 +76,7 @@ class Cupom extends Model
                 $user->saldo_sorteio = $novoSaldo;
                 $user->save();
 
-                Log::info("Gerados {$quantidadeNumeros} número(s) para o cupom #{$cupom->id} do usuário #{$user->id}");
+                // Log::info("Gerados {$quantidadeNumeros} número(s) para o cupom #{$cupom->id} do usuário #{$user->id}");
 
                 // if ($quantidadeNumeros > 0 && $adminEmail = env('ADMIN_EMAIL')) {
                 //     Notification::route('mail', $adminEmail)
