@@ -68,6 +68,7 @@ class CreateCupom extends CreateRecord
             $data['chave_acesso'] = $this->chave_acesso_manual;
         }
 
+        dd($data);
         return $data;
     }
 
