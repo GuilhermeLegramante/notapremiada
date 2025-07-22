@@ -47,12 +47,12 @@ class NotaFiscalService
         $dadosNota['empresa_nome'] = trim($empresaNome);
 
         preg_match('/(\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2})<\/div><div class="text">(.*?)<\/div>/s', $html, $matches);
-    
+
         if (!isset($matches[2])) return null;
-    
+
         $enderecoCompleto = strip_tags($matches[2]);
         $partes = explode(',', $enderecoCompleto);
-    
+
         // A cidade está sempre na penúltima posição antes do estado
         $cidade = trim($partes[count($partes) - 2]);
 
@@ -97,7 +97,9 @@ class NotaFiscalService
         } else {
             $totalNota = 0;
         }
-        $dadosNota['total'] = (float) str_replace(',', '.', trim($totalNota));
+
+        $valorLimpo = str_replace(['.', ','], ['', '.'], trim($totalNota));
+        $dadosNota['total'] = (float) $valorLimpo;
 
         // Extrair a quantidade total de itens
         $qtdItens = $xpath->query("//div[@id='totalNota']//div[@id='linhaTotal']//span[@class='totalNumb']");
