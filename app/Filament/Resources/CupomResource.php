@@ -59,7 +59,7 @@ class CupomResource extends Resource
 
                             View::make('components.manual-button'),
 
-                            TextInput::make('chave_acesso')
+                            TextInput::make('chave_acesso_manual')
                                 ->label('Chave de Acesso')
                                 ->unique()
                                 ->maxLength(44)
@@ -71,11 +71,11 @@ class CupomResource extends Resource
                                         ->icon('heroicon-o-magnifying-glass')
                                         ->tooltip('Buscar nota fiscal')
                                         ->action(function ($livewire, $set, $get) {
-                                            $set('preview_chave', $get('chave_acesso'));
+                                            $set('preview_chave', $get('chave_acesso_manual'));
 
                                             if (
-                                                \App\Models\Cupom::where('chave_acesso', 'LIKE', "%{$get('chave_acesso')}%")
-                                                ->orWhereRaw('? LIKE CONCAT("%", chave_acesso, "%")', [$get('chave_acesso')])
+                                                \App\Models\Cupom::where('chave_acesso', 'LIKE', "%{$get('chave_acesso_manual')}%")
+                                                ->orWhereRaw('? LIKE CONCAT("%", chave_acesso, "%")', [$get('chave_acesso_manual')])
                                                 ->exists()
                                             ) {
                                                 $livewire->loadData = false;
@@ -84,7 +84,7 @@ class CupomResource extends Resource
                                                 Notification::make()
                                                     ->title('Chave de acesso inválida')
                                                     ->danger()
-                                                    ->body('Chava de acesso já cadastrada')
+                                                    ->body('Chave de acesso já cadastrada')
                                                     ->send();
                                             } else {
                                                 $livewire->mostrarPreview = true;

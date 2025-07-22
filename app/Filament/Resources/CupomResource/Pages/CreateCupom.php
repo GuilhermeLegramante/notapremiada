@@ -15,7 +15,7 @@ class CreateCupom extends CreateRecord
 {
     protected static string $resource = CupomResource::class;
 
-    public $chave_acesso = '';
+    public $chave_acesso_manual = '';
     public $preview_chave = null;
 
     public $loadData = false;
@@ -62,6 +62,10 @@ class CreateCupom extends CreateRecord
         $data['user_id'] = auth()->id();
         $data['data_cadastro'] = now();
         $data['validado'] = $this->validado;
+
+        if ($this->isManual) {
+            $data['chave_acesso'] = $this->chave_acesso_manual;
+        }
 
         return $data;
     }
