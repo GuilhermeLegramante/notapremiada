@@ -16,6 +16,7 @@ class CreateCupom extends CreateRecord
     protected static string $resource = CupomResource::class;
 
     public $chave_acesso_manual = '';
+    public $chave_acesso = '';
     public $preview_chave = null;
 
     public $loadData = false;
