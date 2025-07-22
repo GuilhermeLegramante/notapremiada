@@ -63,12 +63,12 @@ class CreateCupom extends CreateRecord
         $data['user_id'] = auth()->id();
         $data['data_cadastro'] = now();
         $data['validado'] = $this->validado;
+        $data['chave_acesso'] = $this->chave_acesso;
 
         if ($this->isManual) {
             $data['chave_acesso'] = $this->chave_acesso_manual;
         }
 
-        dd($data);
         return $data;
     }
 
