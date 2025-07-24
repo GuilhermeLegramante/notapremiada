@@ -74,9 +74,9 @@ class CupomResource extends Resource
                                             $set('preview_chave', $get('chave_acesso'));
 
                                             if (
-                                                \App\Models\Cupom::where('chave_acesso', 'LIKE', "%{$get('chave_acesso')}%")
+                                                (\App\Models\Cupom::where('chave_acesso', 'LIKE', "%{$get('chave_acesso')}%")
                                                 ->orWhereRaw('? LIKE CONCAT("%", chave_acesso, "%")', [$get('chave_acesso')])
-                                                ->exists()
+                                                ->exists()) == true
                                             ) {
                                                 $livewire->loadData = false;
                                                 $livewire->mostrarPreview = false;

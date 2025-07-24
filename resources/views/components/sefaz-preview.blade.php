@@ -16,14 +16,28 @@
             </p>
         </div>
 
-        <div class="border rounded shadow">
-            <iframe src="https://www.sefaz.rs.gov.br/NFE/NFE-NFC.aspx?chaveNFe={{ $getState() }}" width="100%"
-                height="400" style="border: none;"></iframe>
-        </div>
+        @php
+            $chave = $getState();
+            $modelo = substr($chave, 20, 2); // posição 21-22
+            $url =
+                $modelo === '55'
+                    ? 'https://www.nfe.fazenda.gov.br/portal/consultaRecaptcha.aspx'
+                    : 'https://www.sefaz.rs.gov.br/NFE/NFE-NFC.aspx?chaveNFe=' . $chave;
+        @endphp
+
+        @if ($modelo === '55')
+            <div class="border rounded shadow p-4 text-sm text-gray-700 bg-yellow-50">
+                ⚠️ A consulta de NF-e (modelo 55) não pode ser exibida dentro do sistema.
+                Clique no link abaixo para abrir a nota diretamente no site da Receita:
+            </div>
+        @else
+            <div class="border rounded shadow">
+                <iframe src="{{ $url }}" width="100%" height="400" style="border: none;"></iframe>
+            </div>
+        @endif
 
         <div>
-            <a href="https://www.sefaz.rs.gov.br/NFE/NFE-NFC.aspx?chaveNFe={{ $getState() }}" target="_blank"
-                class="text-blue-600 underline hover:text-blue-800 text-sm">
+            <a href="{{ $url }}" target="_blank" class="text-blue-600 underline hover:text-blue-800 text-sm">
                 🔗 Abrir em nova aba
             </a>
         </div>
