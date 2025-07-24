@@ -47,7 +47,7 @@ class CreateCupom extends CreateRecord
 
         // Aqui quero uma validação para que não tenha $data['chave_acesso'] duplicadas 
         // Verifica se já existe a chave_acesso no banco
-        if (Cupom::where('chave_acesso', $this->chave_acesso)->exists()) {
+        if (Cupom::where('chave_acesso', $this->chave_acesso)->exists() == true) {
             Notification::make()
                 ->title('Erro ao salvar')
                 ->body('Esta chave de acesso já foi cadastrada.')
