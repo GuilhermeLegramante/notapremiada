@@ -75,7 +75,6 @@ class CupomResource extends Resource
 
                                             if (
                                                 (\App\Models\Cupom::where('chave_acesso', 'LIKE', "%{$get('chave_acesso')}%")
-                                                    ->orWhereRaw('? LIKE CONCAT("%", chave_acesso, "%")', [$get('chave_acesso')])
                                                     ->exists()) == true
                                             ) {
                                                 $livewire->loadData = false;
