@@ -75,8 +75,8 @@ class CupomResource extends Resource
 
                                             if (
                                                 (\App\Models\Cupom::where('chave_acesso', 'LIKE', "%{$get('chave_acesso')}%")
-                                                ->orWhereRaw('? LIKE CONCAT("%", chave_acesso, "%")', [$get('chave_acesso')])
-                                                ->exists()) == true
+                                                    ->orWhereRaw('? LIKE CONCAT("%", chave_acesso, "%")', [$get('chave_acesso')])
+                                                    ->exists()) == true
                                             ) {
                                                 $livewire->loadData = false;
                                                 $livewire->mostrarPreview = false;
@@ -166,12 +166,22 @@ class CupomResource extends Resource
                 Tables\Actions\Action::make('verNota')
                     ->label('Ver Nota')
                     ->icon('heroicon-o-document-text')
-                    ->url(
-                        fn($record) =>
-                        $record->validado
-                            ? "https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p={$record->chave_acesso}"
-                            : "https://www.sefaz.rs.gov.br/NFE/NFE-NFC.aspx?chaveNFe={$record->chave_acesso}"
-                    )
+                    ->url(function ($record) {
+                        // Extrai os dois dígitos do modelo da nota (posições 21 e 22 da chave)
+                        $modelo = substr($record->chave_acesso, 20, 2); // Índice base 0
+
+                        // Se a nota for modelo 55 (NF-e)
+                        if ($modelo === '55') {
+                            return "https://www.nfe.fazenda.gov.br/portal/consultaRecaptcha.aspx?chNFe={$record->chave_acesso}&nVersao=100&tpAmb=1&x=1";
+                        }
+
+                        // Se a nota for modelo 65 (NFC-e)
+                        if ($record->validado) {
+                            return "https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p={$record->chave_acesso}";
+                        }
+
+                        return "https://www.sefaz.rs.gov.br/NFE/NFE-NFC.aspx?chaveNFe={$record->chave_acesso}";
+                    })
                     ->openUrlInNewTab(),
                 Tables\Actions\DeleteAction::make(),
             ])
