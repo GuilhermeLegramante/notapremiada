@@ -32,7 +32,7 @@ Route::post('register', [UserController::class, 'store']);
 Route::get('/versao-app', function () {
     return response()->json([
         'minima' => '1.0.0', // versão mínima obrigatória
-        'ultima' => '1.0.5', // versão mais recente disponível
+        'ultima' => '1.0.2', // versão mais recente disponível
         'url_android' => 'https://play.google.com/store/apps/details?id=com.hardsoft.notaPremiada',
     ]);
 });
