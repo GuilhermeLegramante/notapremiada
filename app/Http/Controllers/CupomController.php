@@ -114,4 +114,40 @@ class CupomController extends Controller
 
         return $p;
     }
+
+    public function storeManual(Request $request)
+    {
+        $data = $request->validate([
+            'chave_acesso' => 'required|string|unique:cupons,chave_acesso',
+            'valor_total' => 'required|numeric|min:0.01',
+            'fornecedor' => 'required|string|max:255',
+            'observacao' => 'nullable|string',
+        ]);
+
+        $user = $request->user();
+
+        // Verificar se já existe uma chave semelhante (com hash extra ou prefixo/sufixo)
+        $chaveLimpa = substr($data['chave_acesso'], 0, 44);
+        $cupomExistente = \App\Models\Cupom::where('chave_acesso', 'LIKE', "$chaveLimpa%")->first();
+
+        if ($cupomExistente) {
+            return response()->json([
+                'message' => 'Esta chave de acesso (ou similar) já foi cadastrada.',
+            ], 400);
+        }
+
+        $cupom = $user->cupons()->create([
+            'chave_acesso' => $data['chave_acesso'],
+            'valor_total' => $data['valor_total'],
+            'fornecedor' => $data['fornecedor'],
+            'observacao' => $data['observacao'] ?? null,
+            'data_cadastro' => now(),
+            'validado' => false,
+        ]);
+
+        return response()->json([
+            'message' => 'Cupom cadastrado manualmente com sucesso!',
+            'cupom' => $cupom,
+        ], 201);
+    }
 }

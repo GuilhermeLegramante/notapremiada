@@ -55,6 +55,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/saldo', [UserController::class, 'saldo']);
 
 
+    Route::post('/cupons/manual', [CupomController::class, 'storeManual']);
 
     // Sorteios realizados
     // Route::get('/sorteios', [SorteioController::class, 'index']);
