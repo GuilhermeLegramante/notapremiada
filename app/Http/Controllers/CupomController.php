@@ -122,6 +122,7 @@ class CupomController extends Controller
             'valor_total' => 'required|numeric|min:0.01',
             'fornecedor' => 'required|string|max:255',
             'observacao' => 'nullable|string',
+            'arquivo' => 'nullable|image|max:10240', // até 10MB
         ]);
 
         $user = $request->user();
@@ -136,12 +137,18 @@ class CupomController extends Controller
             ], 400);
         }
 
+        $path = null;
+        if ($request->hasFile('arquivo')) {
+            $path = $request->file('arquivo')->store('cupons', 'public');
+        }
+
         $cupom = $user->cupons()->create([
             'chave_acesso' => $data['chave_acesso'],
             'valor_total' => $data['valor_total'],
             'fornecedor' => $data['fornecedor'],
             'observacao' => $data['observacao'] ?? null,
             'data_cadastro' => now(),
+            'arquivo' => $path,
             'validado' => false,
         ]);
 
