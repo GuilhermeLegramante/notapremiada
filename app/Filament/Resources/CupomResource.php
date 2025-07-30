@@ -20,12 +20,21 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\View;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Forms\Components\Button;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Notifications\Notification;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\Summarizers\Sum;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Callback;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
+use Filament\Forms;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Enums\ActionsPosition;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 
 class CupomResource extends Resource
 {
@@ -107,12 +116,26 @@ class CupomResource extends Resource
 
                             TextInput::make('fornecedor')
                                 ->readOnly(fn($livewire) => !$livewire->isManual)
+                                ->required()
                                 ->maxLength(255)
                                 ->visible(fn($livewire) => $livewire->loadData),
 
                             DatePicker::make('data_emissao')
                                 ->label('Data de Emissão')
+                                ->required()
                                 ->readOnly(fn($livewire) => !$livewire->isManual)
+                                ->visible(fn($livewire) => $livewire->loadData),
+
+                            FileUpload::make('arquivo')
+                                ->label('Foto ou arquivo da nota fiscal')
+                                ->required()
+                                ->directory('cupons')
+                                ->imagePreviewHeight('200')
+                                ->downloadable()
+                                ->openable()
+                                ->preserveFilenames()
+                                ->maxSize(10240) // opcional: 10MB
+                                ->nullable()
                                 ->visible(fn($livewire) => $livewire->loadData),
 
                             Textarea::make('observacao')
@@ -127,43 +150,133 @@ class CupomResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->persistFiltersInSession()
+            ->persistSortInSession()
             ->defaultSort('id', 'desc')
             ->columns([
+                // TextColumn::make('numerosSorteio')
+                //     ->label('Números p/ Sorteio')
+                //     ->formatStateUsing(
+                //         fn($record) =>
+                //         $record->numerosSorteio
+                //             ->pluck('id')
+                //             ->map(fn($id) => str_pad($id, 6, '0', STR_PAD_LEFT))
+                //             ->implode(', ')
+                //     ),
                 TextColumn::make('numerosSorteio')
                     ->label('Números p/ Sorteio')
-                    ->formatStateUsing(
-                        fn($record) =>
+                    ->formatStateUsing(fn($state, $record) => 'Ver números')
+                    ->tooltip(fn($record) => Str::limit(
                         $record->numerosSorteio
-                            ->pluck('id')
-                            ->map(fn($id) => str_pad($id, 6, '0', STR_PAD_LEFT))
-                            ->implode(', ')
-                    ),
-                TextColumn::make('data_cadastro')
+                            ->pluck('codigo_continuo')
+                            ->map(fn($codigo_continuo) => str_pad($codigo_continuo, 6, '0', STR_PAD_LEFT))
+                            ->implode(', '),
+                        200
+                    ))
+                    ->extraAttributes([
+                        'class' => 'cursor-pointer text-primary underline',
+                    ]),
+
+                TextColumn::make('created_at')
+                    ->label('Cadastrado em')
+                    ->dateTime()
                     ->sortable()
-                    ->searchable()
-                    ->label('Data do Cadastro')
-                    ->date(),
+                    ->toggleable(),
                 TextColumn::make('user.name')
                     ->sortable()
                     ->searchable()
+                    ->toggleable()
                     ->label('Usuário'),
                 TextColumn::make('fornecedor')
                     ->sortable()
+                    ->toggleable()
                     ->searchable(),
                 TextColumn::make('valor_total')
                     ->sortable()
                     ->summarize(Sum::make()->label('Total')->money('BRL'))
                     ->searchable()
+                    ->toggleable()
                     ->money('BRL'),
+                ImageColumn::make('arquivo')
+                    ->disk('public')
+                    ->height(50)
+                    ->circular()
+                    ->toggleable()
+                    ->url(fn($record) => Storage::disk('public')->url($record->arquivo))
+                    ->openUrlInNewTab(),
                 IconColumn::make('validado')
                     ->sortable()
                     ->boolean()
+                    ->toggleable()
                     ->label('Validado'),
+
+                TextColumn::make('updated_at')
+                    ->label('Editado em')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([])
+            ->filters([
+                Filter::make('data_cadastro')
+                    ->form([
+                        Forms\Components\DatePicker::make('data_inicio')->label('Data Início'),
+                        Forms\Components\DatePicker::make('data_fim')->label('Data Fim'),
+                    ])
+                    ->query(function ($query, array $data) {
+                        return $query
+                            ->when($data['data_inicio'], fn($q) => $q->whereDate('data_cadastro', '>=', $data['data_inicio']))
+                            ->when($data['data_fim'], fn($q) => $q->whereDate('data_cadastro', '<=', $data['data_fim']));
+                    }),
+
+                SelectFilter::make('user_id')
+                    ->label('Usuário')
+                    ->relationship('user', 'name')
+                    ->visible(fn() => auth()->user()->admin)
+                    ->searchable(),
+
+                Filter::make('fornecedor')
+                    ->form([
+                        Forms\Components\TextInput::make('fornecedor')
+                            ->label('Fornecedor')
+                            ->placeholder('Nome do fornecedor'),
+                    ])
+                    ->query(function ($query, array $data) {
+                        return $query->when($data['fornecedor'], fn($q) => $q->where('fornecedor', 'like', "%{$data['fornecedor']}%"));
+                    }),
+
+                Filter::make('valor_total')
+                    ->form([
+                        Forms\Components\TextInput::make('valor_min')
+                            ->label('Valor Mínimo')
+                            ->numeric(),
+                        Forms\Components\TextInput::make('valor_max')
+                            ->label('Valor Máximo')
+                            ->numeric(),
+                    ])
+                    ->query(function ($query, array $data) {
+                        return $query
+                            ->when($data['valor_min'], fn($q) => $q->where('valor_total', '>=', $data['valor_min']))
+                            ->when($data['valor_max'], fn($q) => $q->where('valor_total', '<=', $data['valor_max']));
+                    }),
+
+                SelectFilter::make('validado')
+                    ->label('Validado')
+                    ->options([
+                        1 => 'Sim',
+                        0 => 'Não',
+                    ]),
+            ])
+            ->deferFilters()
+            ->filtersApplyAction(
+                fn(Tables\Actions\Action $action) => $action
+                    ->link()
+                    ->label('Aplicar Filtro(s)'),
+            )
             ->actions([
+                // ActionGroup::make([
                 Tables\Actions\Action::make('verNota')
-                    ->label('Ver Nota')
+                    ->label('')
+                    ->tooltip('Ver Nota (SEFAZ)')
                     ->icon('heroicon-o-document-text')
                     ->url(function ($record) {
                         // Extrai os dois dígitos do modelo da nota (posições 21 e 22 da chave)
@@ -182,8 +295,23 @@ class CupomResource extends Resource
                         return "https://www.sefaz.rs.gov.br/NFE/NFE-NFC.aspx?chaveNFe={$record->chave_acesso}";
                     })
                     ->openUrlInNewTab(),
-                Tables\Actions\DeleteAction::make(),
-            ])
+
+                Tables\Actions\Action::make('verDetalhes')
+                    ->label('')
+                    ->tooltip('Detalhes')
+                    ->icon('heroicon-o-eye')
+                    ->modalHeading('Detalhes do Cupom')
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('Fechar')
+                    ->modalContent(function ($record) {
+                        return view('detalhes-cupom', compact('record'));
+                    }),
+
+                Tables\Actions\DeleteAction::make()
+                    ->label('')
+                    ->tooltip('Excluir'),
+                // ]),
+            ], position: ActionsPosition::BeforeColumns)
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);

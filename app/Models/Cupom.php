@@ -23,6 +23,7 @@ class Cupom extends Model
         'data_cadastro',
         'observacao',
         'validado',
+        'arquivo',
     ];
 
     protected $casts = [
@@ -69,7 +70,10 @@ class Cupom extends Model
                         $existe = NumeroSorteio::where('numero', $numero)->exists();
                     } while ($existe);
 
-                    $numeroSorteio = $cupom->numerosSorteio()->create(['numero' => $numero]);
+                    $numeroSorteio = $cupom->numerosSorteio()->create([
+                        'numero' => $numero,
+                        'codigo_continuo' => NumeroSorteio::getProximoCodigoDisponivel(),
+                    ]);
                     $numerosGerados[] = $numeroSorteio->numero;
                 }
 
