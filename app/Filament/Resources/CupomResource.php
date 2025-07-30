@@ -200,6 +200,7 @@ class CupomResource extends Resource
                     ->openUrlInNewTab(),
                 ToggleColumn::make('validado')
                     ->label('Validado')
+                    ->sortable()
                     ->disabled(fn() => ! auth()->user()->admin),
                 TextColumn::make('updated_at')
                     ->label('Editado em')
