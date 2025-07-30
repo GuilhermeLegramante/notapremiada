@@ -32,9 +32,11 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
 use Filament\Forms;
 use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Enums\ActionsPosition;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Support\Facades\Auth;
 
 class CupomResource extends Resource
 {
@@ -155,15 +157,6 @@ class CupomResource extends Resource
             ->persistSortInSession()
             ->defaultSort('id', 'desc')
             ->columns([
-                // TextColumn::make('numerosSorteio')
-                //     ->label('Números p/ Sorteio')
-                //     ->formatStateUsing(
-                //         fn($record) =>
-                //         $record->numerosSorteio
-                //             ->pluck('id')
-                //             ->map(fn($id) => str_pad($id, 6, '0', STR_PAD_LEFT))
-                //             ->implode(', ')
-                //     ),
                 TextColumn::make('numerosSorteio')
                     ->label('Números p/ Sorteio')
                     ->formatStateUsing(fn($state, $record) => 'Ver números')
@@ -205,12 +198,9 @@ class CupomResource extends Resource
                     ->toggleable()
                     ->url(fn($record) => Storage::disk('public')->url($record->arquivo))
                     ->openUrlInNewTab(),
-                IconColumn::make('validado')
-                    ->sortable()
-                    ->boolean()
-                    ->toggleable()
-                    ->label('Validado'),
-
+                ToggleColumn::make('validado')
+                    ->label('Validado')
+                    ->disabled(fn() => ! auth()->user()->admin),
                 TextColumn::make('updated_at')
                     ->label('Editado em')
                     ->dateTime()
