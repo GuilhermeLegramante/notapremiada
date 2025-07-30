@@ -15,7 +15,7 @@ class CreateCupom extends CreateRecord
 {
     protected static string $resource = CupomResource::class;
 
-    public $chave_acesso = '';
+    // public $chave_acesso = '';
     public $preview_chave = null;
 
     public $loadData = false;
@@ -33,25 +33,12 @@ class CreateCupom extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        // if (! $this->validado) {
-        //     Notification::make()
-        //         ->title('Erro ao salvar')
-        //         ->body('A chave de acesso informada é inválida. Não é possível salvar o cupom.')
-        //         ->danger()
-        //         ->send();
-
-        //     throw ValidationException::withMessages([
-        //         'chave_acesso' => 'Chave de acesso inválida. Verifique e tente novamente.',
-        //     ]);
-        // }
-
         $data['user_id'] = auth()->id();
         $data['data_cadastro'] = now();
         $data['validado'] = $this->validado;
-        $data['chave_acesso'] = $this->chave_acesso;
 
         // Verifica se já existe a chave_acesso no banco
-        if (Cupom::where('chave_acesso', 'like', '%' . $this->chave_acesso . '%')->exists()) {
+        if (Cupom::where('chave_acesso', 'like', '%' . $data['chave_acesso'] . '%')->exists()) {
             Notification::make()
                 ->title('Erro ao salvar')
                 ->body('Esta chave de acesso já foi cadastrada.')

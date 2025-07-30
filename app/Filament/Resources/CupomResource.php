@@ -71,8 +71,8 @@ class CupomResource extends Resource
                             TextInput::make('chave_acesso')
                                 ->label('Chave de Acesso')
                                 ->unique()
-                                ->maxLength(44)
-                                ->minLength(44)
+                                // ->maxLength(44)
+                                // ->minLength(44)
                                 ->reactive()
                                 ->visible(fn($livewire) => $livewire->isManual)
                                 ->suffixAction(
@@ -111,31 +111,31 @@ class CupomResource extends Resource
                                 ->numeric()
                                 ->readOnly(fn($livewire) => !$livewire->isManual)
                                 ->prefix('R$')
-                                ->required()
+                                ->required(fn($livewire) => $livewire->loadData)
                                 ->visible(fn($livewire) => $livewire->loadData),
 
                             TextInput::make('fornecedor')
                                 ->readOnly(fn($livewire) => !$livewire->isManual)
-                                ->required()
+                                ->required(fn($livewire) => $livewire->loadData)
                                 ->maxLength(255)
                                 ->visible(fn($livewire) => $livewire->loadData),
 
                             DatePicker::make('data_emissao')
                                 ->label('Data de Emissão')
-                                ->required()
+                                ->required(fn($livewire) => $livewire->loadData)
                                 ->readOnly(fn($livewire) => !$livewire->isManual)
                                 ->visible(fn($livewire) => $livewire->loadData),
 
                             FileUpload::make('arquivo')
                                 ->label('Foto ou arquivo da nota fiscal')
-                                ->required()
+                                ->required(fn($livewire) => $livewire->loadData)
                                 ->directory('cupons')
                                 ->imagePreviewHeight('200')
                                 ->downloadable()
                                 ->openable()
                                 ->preserveFilenames()
                                 ->maxSize(10240) // opcional: 10MB
-                                ->nullable()
+                                ->disabled(fn($livewire) => !$livewire->isManual)
                                 ->visible(fn($livewire) => $livewire->loadData),
 
                             Textarea::make('observacao')
