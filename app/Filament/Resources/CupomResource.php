@@ -312,7 +312,15 @@ class CupomResource extends Resource
                     ->tooltip('Excluir')
                     ->before(function ($record) {
                         if ($record->user && $record->user->email) {
-                            Mail::to($record->user->email)->send(new \App\Mail\CupomRejeitadoMail($record));
+                            try {
+                                Mail::to($record->user->email)->send(new \App\Mail\CupomRejeitadoMail($record));
+                            } catch (\Throwable $e) {
+                                Notification::make()
+                                    ->title('Erro ao enviar e-mail')
+                                    ->body('Não foi possível enviar o e-mail de rejeição, mas o cupom foi excluído.')
+                                    ->danger()
+                                    ->send();
+                            }
                         }
                     }),
             ], position: ActionsPosition::BeforeColumns)
