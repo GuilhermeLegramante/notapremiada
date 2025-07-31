@@ -146,7 +146,6 @@ class CupomResource extends Resource
                                 ->imagePreviewHeight('200')
                                 ->downloadable()
                                 ->openable()
-                                ->preserveFilenames()
                                 ->maxSize(10240) // opcional: 10MB
                                 ->disabled(fn($livewire) => !$livewire->isManual)
                                 ->visible(fn($livewire) => $livewire->loadData),
