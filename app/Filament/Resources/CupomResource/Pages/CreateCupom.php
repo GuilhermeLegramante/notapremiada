@@ -33,7 +33,8 @@ class CreateCupom extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $data['user_id'] = auth()->id();
+        // Usa o user_id do formulário, se existir. Caso contrário, define como o usuário logado
+        $data['user_id'] = $data['user_id'] ?? auth()->id();
         $data['data_cadastro'] = now();
         $data['validado'] = $this->validado;
 

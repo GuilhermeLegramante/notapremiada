@@ -31,12 +31,14 @@ use Illuminate\Validation\Rules\Callback;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Enums\ActionsPosition;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CupomResource extends Resource
 {
@@ -69,6 +71,14 @@ class CupomResource extends Resource
                                 ->visible(fn() => true),
 
                             View::make('components.manual-button'),
+
+                            Select::make('user_id')
+                                ->label('Usuário')
+                                ->relationship('user', 'name')
+                                ->required()
+                                ->visible(fn() => auth()->user()?->admin)
+                                ->searchable()
+                                ->preload(),
 
                             TextInput::make('chave_acesso')
                                 ->label('Chave de Acesso')
@@ -265,7 +275,6 @@ class CupomResource extends Resource
                     ->label('Aplicar Filtro(s)'),
             )
             ->actions([
-                // ActionGroup::make([
                 Tables\Actions\Action::make('verNota')
                     ->label('')
                     ->tooltip('Ver Nota (SEFAZ)')
@@ -301,8 +310,12 @@ class CupomResource extends Resource
 
                 Tables\Actions\DeleteAction::make()
                     ->label('')
-                    ->tooltip('Excluir'),
-                // ]),
+                    ->tooltip('Excluir')
+                    ->before(function ($record) {
+                        if ($record->user && $record->user->email) {
+                            Mail::to($record->user->email)->send(new \App\Mail\CupomRejeitadoMail($record));
+                        }
+                    }),
             ], position: ActionsPosition::BeforeColumns)
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
