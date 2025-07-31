@@ -30,9 +30,11 @@
 
         <p
             style="margin-bottom: 20px; background-color: #fef3c7; padding: 15px; border-radius: 6px; border-left: 4px solid #facc15;">
-            <strong>Observação:</strong> Caso o cupom tenha sido rejeitado apenas por conter erro no valor total, ele
-            será recadastrado manualmente por nossa equipe e <strong>novos números de sorteio serão gerados</strong>,
-            enquanto os números antigos serão removidos do sistema.
+            <strong>Observação:</strong> Caso o cupom tenha sido rejeitado apenas por conter erro no valor total, você
+            poderá
+            <strong>cadastrá-lo novamente</strong> com os dados corrigidos. Novos números de sorteio serão gerados, e os
+            anteriores
+            vinculados ao cupom rejeitado serão desconsiderados.
         </p>
 
         <p>Se tiver dúvidas, entre em contato com o suporte da campanha.</p>
