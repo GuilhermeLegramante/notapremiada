@@ -39,6 +39,7 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Leandrocfe\FilamentPtbrFormFields\Money;
 
 class CupomResource extends Resource
 {
@@ -71,6 +72,18 @@ class CupomResource extends Resource
                                 ->visible(fn() => true),
 
                             View::make('components.manual-button'),
+
+
+                            FileUpload::make('arquivo')
+                                ->label('Foto ou arquivo da nota fiscal')
+                                ->required(fn($livewire) => $livewire->loadData)
+                                ->directory('cupons')
+                                ->imagePreviewHeight('200')
+                                ->downloadable()
+                                ->openable()
+                                ->maxSize(10240) // opcional: 10MB
+                                ->disabled(fn($livewire) => !$livewire->isManual)
+                                ->visible(fn($livewire) => $livewire->loadData),
 
                             Select::make('user_id')
                                 ->label('Usuário')
@@ -119,11 +132,18 @@ class CupomResource extends Resource
                                 ->reactive()
                                 ->statePath('preview_chave'),
 
-                            TextInput::make('valor_total')
+                            // TextInput::make('valor_total')
+                            //     ->label('Valor Total')
+                            //     ->numeric()
+                            //     ->readOnly(fn($livewire) => !$livewire->isManual)
+                            //     ->prefix('R$')
+                            //     ->required(fn($livewire) => $livewire->loadData)
+                            //     ->visible(fn($livewire) => $livewire->loadData),
+
+                            Money::make('valor_total')
                                 ->label('Valor Total')
-                                ->numeric()
                                 ->readOnly(fn($livewire) => !$livewire->isManual)
-                                ->prefix('R$')
+                                ->default('100,00')
                                 ->required(fn($livewire) => $livewire->loadData)
                                 ->visible(fn($livewire) => $livewire->loadData),
 
@@ -139,16 +159,6 @@ class CupomResource extends Resource
                                 ->readOnly(fn($livewire) => !$livewire->isManual)
                                 ->visible(fn($livewire) => $livewire->loadData),
 
-                            FileUpload::make('arquivo')
-                                ->label('Foto ou arquivo da nota fiscal')
-                                ->required(fn($livewire) => $livewire->loadData)
-                                ->directory('cupons')
-                                ->imagePreviewHeight('200')
-                                ->downloadable()
-                                ->openable()
-                                ->maxSize(10240) // opcional: 10MB
-                                ->disabled(fn($livewire) => !$livewire->isManual)
-                                ->visible(fn($livewire) => $livewire->loadData),
 
                             Textarea::make('observacao')
                                 ->maxLength(1000)
