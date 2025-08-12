@@ -143,7 +143,6 @@ class CupomResource extends Resource
                             Money::make('valor_total')
                                 ->label('Valor Total')
                                 ->readOnly(fn($livewire) => !$livewire->isManual)
-                                ->default('100,00')
                                 ->required(fn($livewire) => $livewire->loadData)
                                 ->visible(fn($livewire) => $livewire->loadData),
 
