@@ -2,6 +2,7 @@
 
 use App\Filament\Pages\Register;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\NewPasswordController;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
@@ -53,3 +54,12 @@ Route::post('/exclusao-de-dados/enviar', function (\Illuminate\Http\Request $req
 
     return back()->with('success', 'Sua solicitação foi enviada com sucesso.');
 })->name('exclusao.enviar');
+
+
+Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
+    ->middleware('guest')
+    ->name('password.reset');
+
+Route::post('/reset-password', [NewPasswordController::class, 'store'])
+    ->middleware('guest')
+    ->name('password.update');
