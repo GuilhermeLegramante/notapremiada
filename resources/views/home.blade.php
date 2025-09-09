@@ -76,7 +76,7 @@
                 </a>
                 <a href="https://apps.apple.com/br/app/hardsoft-nota-premiada/id6747683622" target="_blank"
                     class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-blue-100 transition">
-                    Acesso para iOS
+                    App para iOS
                 </a>
             </div>
 
