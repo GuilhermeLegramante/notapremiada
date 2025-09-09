@@ -74,10 +74,10 @@
                     class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-blue-100 transition">
                     App para Android
                 </a>
-                {{-- <a href="{{ route('filament.admin.auth.login') }}" target="_blank"
+                <a href="https://apps.apple.com/br/app/hardsoft-nota-premiada/id6747683622" target="_blank"
                     class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-blue-100 transition">
                     Acesso para iOS
-                </a> --}}
+                </a>
             </div>
 
             <p class="mt-4 text-sm text-blue-200 italic">
@@ -203,10 +203,10 @@
                 class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-blue-100 transition">
                 App para Android
             </a>
-            {{-- <a href="{{ route('filament.admin.auth.login') }}" target="_blank"
+            <a href="https://apps.apple.com/br/app/hardsoft-nota-premiada/id6747683622" target="_blank"
                 class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-blue-100 transition">
-                Acesso para iOS
-            </a> --}}
+                App para iOS
+            </a>
         </div>
         <p class="mt-4 text-sm text-blue-200 italic">Disponível gratuitamente nas lojas de aplicativos ou pelo site.</p>
         <div class="mt-8 flex flex-col sm:flex-row justify-center items-center gap-6">
