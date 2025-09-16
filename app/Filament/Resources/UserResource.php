@@ -19,6 +19,8 @@ use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Leandrocfe\FilamentPtbrFormFields\Document;
 use Leandrocfe\FilamentPtbrFormFields\PhoneNumber;
@@ -66,6 +68,25 @@ class UserResource extends Resource
                 Toggle::make('admin')
                     ->label('Administrador')
                     ->inline(false),
+
+                TextInput::make('password')
+                    ->label('Senha')
+                    ->visible(Auth::user()->admin)
+                    ->password()
+                    ->revealable()
+                    ->required()
+                    ->rule('min:4')
+                    ->dehydrateStateUsing(fn($state) => Hash::make($state))
+                    ->same('passwordConfirmation')
+                    ->validationAttribute('senha'),
+                    
+                TextInput::make('passwordConfirmation')
+                    ->label(__('filament-panels::pages/auth/register.form.password_confirmation.label'))
+                    ->password()
+                    ->visible(Auth::user()->admin)
+                    ->required()
+                    ->revealable()
+                    ->dehydrated(false),
 
                 Select::make('roles')
                     ->label('Perfil')
