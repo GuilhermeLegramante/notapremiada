@@ -102,7 +102,7 @@ class UserResource extends Resource
             ->columns([
                 TextColumn::make('name')->label('Nome')->searchable(),
                 TextColumn::make('email')->label('E-mail')->searchable(),
-                TextColumn::make('cpf')->label('CPF')->sortable(),
+                TextColumn::make('cpf')->label('CPF')->sortable()->searchable(),
                 TextColumn::make('telefone')->label('Telefone'),
                 TextColumn::make('data_nascimento')->label('Nascimento')->date(),
                 ToggleColumn::make('admin')
