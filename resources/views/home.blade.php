@@ -62,12 +62,12 @@
             <h1 class="text-3xl font-bold mb-4">
                 Ganhe prêmios cadastrando suas notas fiscais!
             </h1>
-            <p class="text-lg md:text-xl mb-6">
+            {{-- <p class="text-lg md:text-xl mb-6">
                 A cada R$200 em compras no comércio local, você ganha um número da sorte.<br>
                 O sorteio final ocorre em <strong>28 de dezembro</strong>!
             </p>
 
-            <div id="countdown" class="text-2xl md:text-3xl font-bold mb-6"></div>
+            <div id="countdown" class="text-2xl md:text-3xl font-bold mb-6"></div> --}}
 
             <div class="flex flex-col md:flex-row items-center justify-center gap-4">
                 <a href="https://play.google.com/store/apps/details?id=com.hardsoft.notaPremiada" target="_blank"
